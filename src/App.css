@@ -1,13 +1,7 @@
-:root {
-	--purple: #5161ce;
-	--light: #f0f6fb;
-	--yellow: #fcd656;
-	--dark-grey: #36382e;
-}
-
 body {
 	background-color: var(--light);
 	overflow: hidden;
+	user-select: none;
 }
 
 .sidebar {

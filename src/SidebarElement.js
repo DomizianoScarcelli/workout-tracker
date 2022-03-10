@@ -1,20 +1,37 @@
 import React from "react"
-import "./SidebarElement.css"
 
 export default function SidebarElement(props) {
+	const icon = {
+		backgroundImage: `url(${props.iconUrl})`,
+		width: "20px",
+		height: "20px",
+		backgroundPosition: "center",
+		backgroundSize: "contain",
+		backgroundRepeat: "no-repeat",
+	}
+
+	const container = {
+		cursor: "pointer",
+		backgroundColor: props.selected ? "var(--light)" : "var(--purple)",
+		display: "flex",
+		marginLeft: props.selected ? "1rem" : "",
+		flexDirection: "row",
+		padding: props.selected ? "0.5rem 0 0.5rem 1rem" : "1rem 0 0 2rem",
+		height: "fit-content",
+		borderRadius: props.first ? "0 2rem 0 0" : props.selected ? "12rem" : "",
+	}
+
+	const element = {
+		paddingLeft: "10px",
+		fontSize: "22px",
+		fontWeight: "bold",
+		color: props.selected ? "var(--dark-grey)" : "var(--light)",
+	}
+
 	return (
-		<>
-			{props.selected ? (
-				<div className="container__selected">
-					<div className="icon dark"></div>
-					<div className="element__selected"> {props.name}</div>
-				</div>
-			) : (
-				<div className={props.first ? "container first" : "container"}>
-					<div className="icon"></div>
-					<div className="element"> {props.name}</div>
-				</div>
-			)}
-		</>
+		<div style={container}>
+			<div style={icon}></div>
+			<div style={element}>{props.name}</div>
+		</div>
 	)
 }
