@@ -5,7 +5,13 @@
 	padding: 1rem 0 0 2rem;
 	height: fit-content;
 	background-color: var(--purple);
+	transition: padding 300ms;
 }
+
+:not(.selected).container:hover {
+	padding: 1rem 0 0 2.5rem;
+}
+
 .icon {
 	width: 20px;
 	height: 20px;
