@@ -1,0 +1,37 @@
+.container {
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	padding: 1rem 0 0 2rem;
+	height: fit-content;
+	background-color: var(--purple);
+}
+.icon {
+	width: 20px;
+	height: 20px;
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.selected {
+	border-radius: 12rem;
+	padding: 0.5rem 0 0.5rem 1rem;
+	margin-left: 1rem;
+	background-color: var(--light);
+}
+
+.element {
+	padding-left: 10px;
+	font-size: 22px;
+	font-weight: bold;
+	color: var(--light);
+}
+
+.first {
+	border-radius: 0 2rem 0 0;
+}
+
+.selectedElement {
+	color: var(--dark-grey);
+}
