@@ -18,7 +18,7 @@
 }
 
 .dayFilterIcon {
-	background-image: url(../../../../public/icons/angle-right-solid.svg);
+	background-image: url(../../../public/icons/angle-right-solid.svg);
 	height: 18px;
 	width: 18px;
 	background-repeat: no-repeat;

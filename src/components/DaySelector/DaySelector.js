@@ -51,7 +51,7 @@ export default function DaySelector() {
 						days.map((day) => (
 							<>
 								{hoveredDay === day && <motion.div layoutId="background" variants={daySelectorTextVariants} className={styles.daySelectorBackground}></motion.div>}
-								<motion.div
+								<div
 									onMouseOver={() => {
 										setHoveredDay(day)
 									}}
@@ -64,7 +64,7 @@ export default function DaySelector() {
 									className={styles.daySelector}
 								>
 									<span>{day}</span>
-								</motion.div>
+								</div>
 							</>
 						))}
 				</motion.div>
