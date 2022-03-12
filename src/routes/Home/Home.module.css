@@ -3,3 +3,14 @@
 	flex-direction: row;
 	margin-top: 7rem;
 }
+
+.flexRow {
+	margin-top: 15px;
+	display: flex;
+	flex-direction: row;
+}
+
+.flexCol {
+	display: flex;
+	flex-direction: column;
+}
