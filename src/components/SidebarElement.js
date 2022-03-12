@@ -9,7 +9,7 @@ export default function SidebarElement(props) {
 	}
 
 	return (
-		<div className={classNames(styles.container, { [styles.first]: props.first }, { [styles.selected]: props.selected })}>
+		<div className={classNames(styles.container, { [styles.after]: props.first }, { [styles.selected]: props.selected }, { [styles.before]: props.before })}>
 			<div style={iconImage} className={styles.icon}></div>
 			<div className={classNames(styles.element, { [styles.selectedElement]: props.selected })}>{props.name}</div>
 		</div>

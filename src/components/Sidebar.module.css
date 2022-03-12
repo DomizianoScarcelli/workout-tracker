@@ -9,7 +9,6 @@
 .topHalfSidebar {
 	width: 14vw;
 	padding-top: 2rem;
-	padding-bottom: 2rem;
 	display: flex;
 	flex-direction: column;
 	border-radius: 0 2rem 2rem 0;
@@ -28,6 +27,7 @@
 }
 
 .welcomeMessage {
+	padding-bottom: 2rem;
 	font-size: 30px;
 	font-weight: bold;
 	text-align: center;
