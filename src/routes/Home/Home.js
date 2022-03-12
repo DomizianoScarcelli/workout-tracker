@@ -3,6 +3,7 @@ import DaySelector from "../../components/DaySelector/DaySelector"
 import Sidebar from "../../components/Sidebar/Sidebar"
 import styles from "./Home.module.css"
 import AddWorkoutButton from "./AddWorkoutButton/AddWorkoutButton"
+import FrequentExercises from "./FrequentExercises/FrequentExercises"
 
 export default function Home() {
 	return (
@@ -12,6 +13,7 @@ export default function Home() {
 				<DaySelector />
 				<div className={styles.flexRow}>
 					<AddWorkoutButton />
+					<FrequentExercises />
 				</div>
 			</div>
 		</div>

@@ -6,6 +6,7 @@
 
 .flexRow {
 	margin-top: 15px;
+	gap: 30px;
 	display: flex;
 	flex-direction: row;
 }

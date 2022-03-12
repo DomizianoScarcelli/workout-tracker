@@ -1,0 +1,39 @@
+.container {
+	position: relative;
+	padding: 15px 30px 15px 30px;
+	width: 400px;
+	height: 170px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	background-color: white;
+	border-radius: 2rem;
+}
+
+.label {
+	font-weight: 600;
+	font-size: 20px;
+	position: absolute;
+	top: -40px;
+	left: 0px;
+}
+
+.exerciseContainer {
+	position: relative;
+	background-color: var(--yellow);
+	padding: 15px;
+	border-radius: 1rem;
+}
+
+.text {
+	font-weight: 600;
+	font-size: 20px;
+}
+
+.number {
+	font-weight: 600;
+	font-size: 30px;
+	right: 20px;
+	bottom: 10px;
+	position: absolute;
+}
