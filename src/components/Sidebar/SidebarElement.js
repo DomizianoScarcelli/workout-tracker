@@ -7,7 +7,7 @@ export default function SidebarElement(props) {
 	const navigate = useNavigate()
 
 	const iconImage = {
-		backgroundImage: `url(/icons/${props.icon}${props.selected ? "-dark" : ""}.svg)`,
+		backgroundImage: `url(/icons/navbar-icons/${props.icon}${props.selected ? "-dark" : ""}.svg)`,
 	}
 
 	return (
