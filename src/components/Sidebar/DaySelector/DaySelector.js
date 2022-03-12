@@ -1,11 +1,18 @@
 import { React, useState } from "react"
 import styles from "./DaySelector.module.css"
-import { isBrowser, motion } from "framer-motion"
+import { motion, AnimateSharedLayout } from "framer-motion"
 
 export default function DaySelector() {
 	const [isVisible, setVisible] = useState(false)
+	const days = ["Today", "This week", "This month", "This year", "Custom"]
+	const [selectedDay, setSelectedDay] = useState(days[0])
+	const [hoveredDay, setHoveredDay] = useState(null)
 
 	const daySelectorVariants = {
+		hidden: {
+			height: "0px",
+			padding: "0px",
+		},
 		toggle: {
 			height: isVisible ? "fit-content" : "0px",
 			padding: isVisible ? "10px" : "0px",
@@ -19,7 +26,14 @@ export default function DaySelector() {
 		toggle: {
 			visibility: isVisible ? "visible" : "hidden",
 		},
+		switch: {
+			transition: {
+				type: "spring",
+				stiffness: 100,
+			},
+		},
 	}
+
 	return (
 		<div
 			className={styles.dayFilterContainer}
@@ -28,26 +42,33 @@ export default function DaySelector() {
 			}}
 		>
 			<div className={styles.dayFilterTextContainer}>
-				<div className={styles.dayFilterText}>This Week</div>
+				<div className={styles.dayFilterText}>{selectedDay}</div>
 				<motion.div className={styles.dayFilterIcon} variants={daySelectorVariants} animate="rotate"></motion.div>
 			</div>
-			<motion.div variants={daySelectorVariants} animate="toggle" className={styles.daySelectorContainer}>
-				<motion.div variants={daySelectorTextVariants} className={styles.daySelector}>
-					<span>Today</span>
+			<AnimateSharedLayout>
+				<motion.div variants={daySelectorVariants} animate="toggle" initial="hidden" className={styles.daySelectorContainer}>
+					{isVisible &&
+						days.map((day) => (
+							<>
+								{hoveredDay === day && <motion.div layoutId="background" variants={daySelectorTextVariants} className={styles.daySelectorBackground}></motion.div>}
+								<motion.div
+									onMouseOver={() => {
+										setHoveredDay(day)
+									}}
+									onMouseLeave={() => {
+										setHoveredDay(selectedDay)
+									}}
+									onClick={() => {
+										setSelectedDay(day)
+									}}
+									className={styles.daySelector}
+								>
+									<span>{day}</span>
+								</motion.div>
+							</>
+						))}
 				</motion.div>
-				<motion.div variants={daySelectorTextVariants} className={styles.daySelector}>
-					<span>This week</span>
-				</motion.div>
-				<motion.div variants={daySelectorTextVariants} className={styles.daySelector}>
-					<span>This month</span>
-				</motion.div>
-				<motion.div variants={daySelectorTextVariants} className={styles.daySelector}>
-					<span>This year</span>
-				</motion.div>
-				<motion.div variants={daySelectorTextVariants} className={styles.daySelector}>
-					<span>Custom</span>
-				</motion.div>
-			</motion.div>
+			</AnimateSharedLayout>
 		</div>
 	)
 }

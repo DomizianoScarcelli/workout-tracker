@@ -37,6 +37,8 @@
 }
 
 .daySelector {
+	display: block;
+	position: relative;
 	border-radius: 8px;
 	font-size: 20px;
 	padding: 5px;
@@ -45,8 +47,12 @@
 	cursor: pointer;
 }
 
-.daySelector:hover {
+.daySelectorBackground {
+	position: absolute;
 	background-color: var(--purple);
+	height: 2rem;
+	width: 11rem;
+	border-radius: 8px;
 }
 
 .daySelector > * {
