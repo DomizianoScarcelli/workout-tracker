@@ -1,6 +1,7 @@
 .dayFilterContainer {
 	display: flex;
 	flex-direction: column;
+	position: relative;
 }
 
 .dayFilterTextContainer {
@@ -27,10 +28,13 @@
 }
 
 .daySelectorContainer {
+	z-index: 1;
+	position: absolute;
+	top: 30px;
 	margin-top: 5px;
 	background-color: var(--dark-grey);
 	height: fit-content;
-	width: 150%;
+	width: 11rem;
 	border-radius: 1rem;
 	padding: 10px;
 }
