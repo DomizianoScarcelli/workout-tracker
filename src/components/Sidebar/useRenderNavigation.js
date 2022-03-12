@@ -1,4 +1,5 @@
-import SidebarElement from "../components/Sidebar/SidebarElement"
+import SidebarElement from "./SidebarElement"
+import { useState } from "react"
 
 const parseString = (string) => {
 	const result = string.replace("-", " ")
@@ -8,6 +9,7 @@ const useRenderNavigation = (selected) => {
 	const navArray = ["home", "my-workouts", "analytics", "settings"]
 	let firstHalf = []
 	let secondHalf = []
+
 	const index = navArray.indexOf(selected)
 	for (let i = 0; i < index; i++) {
 		const name = parseString(navArray[i])

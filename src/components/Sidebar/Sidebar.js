@@ -1,8 +1,8 @@
-import useRenderNavigation from "../../hooks/useRenderNavigation"
+import useRenderNavigation from "./useRenderNavigation"
 import styles from "./Sidebar.module.css"
 
 function Sidebar(props) {
-	const { firstHalf, secondHalf } = useRenderNavigation(props.selected)
+	const [firstHalf, secondHalf] = useRenderNavigation(props.selected)
 
 	return (
 		<>
