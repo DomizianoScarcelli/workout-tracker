@@ -7,18 +7,14 @@ export default function SidebarElement(props) {
 	const navigate = useNavigate()
 
 	const iconImage = {
-		backgroundImage: `url(${props.iconUrl})`,
-	}
-
-	const parseUrl = (string) => {
-		return "/" + string.toLowerCase().replace(" ", "-")
+		backgroundImage: `url(/icons/${props.icon}${props.selected ? "-dark" : ""}.svg)`,
 	}
 
 	return (
 		<div
 			className={classNames(styles.container, { [styles.after]: props.first }, { [styles.selected]: props.selected }, { [styles.before]: props.before })}
 			onClick={() => {
-				navigate(parseUrl(props.name), { replace: true })
+				navigate("/" + props.icon, { replace: true })
 			}}
 		>
 			<div style={iconImage} className={styles.icon}></div>

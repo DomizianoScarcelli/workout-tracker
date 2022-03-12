@@ -5,11 +5,11 @@ function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route index element={<Sidebar selected={"Home"} />} />
-				<Route path="/home" element={<Sidebar selected={"Home"} />} />
-				<Route path="/my-workouts" element={<Sidebar selected={"My Workouts"} />} />
-				<Route path="/analytics" element={<Sidebar selected={"Analytics"} />} />
-				<Route path="/settings" element={<Sidebar selected={"Settings"} />} />
+				<Route index element={<Sidebar selected={"home"} />} />
+				<Route path="/home" element={<Sidebar selected={"home"} />} />
+				<Route path="/my-workouts" element={<Sidebar selected={"my-workouts"} />} />
+				<Route path="/analytics" element={<Sidebar selected={"analytics"} />} />
+				<Route path="/settings" element={<Sidebar selected={"settings"} />} />
 			</Routes>
 		</Router>
 	)
