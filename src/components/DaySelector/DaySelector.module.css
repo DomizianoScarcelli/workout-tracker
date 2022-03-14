@@ -40,6 +40,7 @@
 }
 
 .daySelector {
+	z-index: 1;
 	display: block;
 	position: relative;
 	border-radius: 8px;

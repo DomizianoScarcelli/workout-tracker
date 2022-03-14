@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar/Sidebar"
 import styles from "./Home.module.css"
 import AddWorkoutButton from "./AddWorkoutButton/AddWorkoutButton"
 import FrequentExercises from "./FrequentExercises/FrequentExercises"
+import History from "./History/History"
 
 export default function Home() {
 	return (
@@ -14,6 +15,7 @@ export default function Home() {
 				<div className={styles.flexRow}>
 					<AddWorkoutButton />
 					<FrequentExercises />
+					<History />
 				</div>
 			</div>
 		</div>

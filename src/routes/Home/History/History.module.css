@@ -1,0 +1,54 @@
+.label {
+	font-weight: 600;
+	font-size: 20px;
+	position: absolute;
+	top: -40px;
+	left: 0px;
+}
+.container {
+	position: relative;
+	flex-direction: column;
+	gap: 10px;
+	display: flex;
+	background-color: white;
+	width: fit-content;
+	height: 170px;
+	padding: 15px;
+	border-radius: 2rem;
+}
+
+.dayGrid,
+.week {
+	gap: 5px;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+}
+
+.weekDay {
+	color: var(--purple);
+	font-weight: bold;
+}
+
+.dayContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	border: solid rgba(128, 128, 128, 0.1) 1px;
+	border-radius: 4px;
+}
+
+.futureDay {
+	color: rgba(0, 0, 0, 0.3);
+}
+
+.selected {
+	border: none;
+	background-color: var(--yellow);
+}
+
+.day {
+	font-weight: bold;
+	font-size: 15px;
+}
