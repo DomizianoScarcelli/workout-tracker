@@ -1,12 +1,13 @@
 .container {
 	display: flex;
 	flex-direction: row;
-	margin-top: 7rem;
+	margin-top: 5rem;
 }
 
 .flexRow {
+	align-items: center;
 	margin-top: 15px;
-	gap: 30px;
+	gap: 60px;
 	display: flex;
 	flex-direction: row;
 }

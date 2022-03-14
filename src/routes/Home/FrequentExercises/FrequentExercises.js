@@ -2,7 +2,7 @@ import { React, useState } from "react"
 import styles from "./FrequentExercises.module.css"
 
 export default function FrequentExercises() {
-	const [exercises, setExercises] = useState(["Sit up", "Push up", "Crunch"])
+	const [exercises, setExercises] = useState(["Sit up", "Push up", "Crunch", "Squat"])
 
 	return (
 		<>
@@ -10,7 +10,6 @@ export default function FrequentExercises() {
 				<div className={styles.label}>Frequent Exercises</div>
 				{exercises.map((exercise) => (
 					<div className={styles.exerciseContainer}>
-						{" "}
 						<div className={styles.text}>{exercise}</div>
 						<div className={styles.number}>300</div>
 					</div>
