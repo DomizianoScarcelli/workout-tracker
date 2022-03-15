@@ -6,6 +6,7 @@ function Sidebar(props) {
 
 	return (
 		<>
+			<div className={styles.toggle}></div>
 			<div className={styles.sidebar}>
 				<div className={styles.topHalfSidebar}>
 					<div className={styles.profileIcon}></div>

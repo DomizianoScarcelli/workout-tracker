@@ -1,5 +1,16 @@
+.toggle {
+	cursor: pointer;
+	width: 30px;
+	height: 30px;
+	background-image: url(../../../public/icons/navbar-icons/bars-solid.svg);
+	position: absolute;
+	top: -3rem;
+	left: 1rem;
+	background-repeat: no-repeat;
+	display: none;
+}
+
 .sidebar {
-	/* margin-right: 10rem; */
 	min-width: 100px;
 	max-width: 12vw;
 	background-color: var(--purple);
@@ -46,11 +57,17 @@
 }
 
 @media (max-width: 700px) {
+	.toggle {
+		display: block;
+	}
 	.topHalfSidebar {
+		position: relative;
 		flex-direction: row;
 	}
 
 	.sidebar {
+		position: absolute;
+		z-index: 1;
 		display: flex;
 		align-items: center;
 		flex-direction: column;

@@ -4,12 +4,6 @@
 	margin-top: 5rem;
 }
 
-@media (max-width: 700px) {
-	.container {
-		flex-direction: column;
-	}
-}
-
 .flexRow {
 	justify-content: center;
 	flex-wrap: wrap;
@@ -26,4 +20,11 @@
 	width: 90vw;
 	display: flex;
 	flex-direction: column;
+}
+
+@media (max-width: 700px) {
+	.container {
+		flex-direction: column;
+		position: relative;
+	}
 }
