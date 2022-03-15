@@ -45,3 +45,20 @@
 .selectedElement {
 	color: var(--dark-grey);
 }
+
+@media (max-width: 700px) {
+	.selected {
+		border-radius: 12rem;
+		padding: 0;
+		margin-left: 0;
+		background-color: var(--light);
+	}
+	.container {
+		align-items: center;
+		flex-direction: column;
+		padding: 0;
+	}
+	:not(.selected).container:hover {
+		padding: 0;
+	}
+}

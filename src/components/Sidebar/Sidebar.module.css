@@ -44,3 +44,31 @@
 	height: 100%;
 	background-color: var(--purple);
 }
+
+@media (max-width: 700px) {
+	.topHalfSidebar {
+		flex-direction: row;
+	}
+
+	.sidebar {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		max-width: 100vw;
+		width: 100vw;
+		height: fit-content;
+		border-radius: 0 0 2rem 2rem;
+		padding-bottom: 1rem;
+	}
+
+	.profileIcon,
+	.welcomeMessage {
+		display: none;
+	}
+
+	.navContainer {
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+	}
+}
