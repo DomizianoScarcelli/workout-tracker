@@ -3,6 +3,8 @@
 	--light: #f0f6fb;
 	--yellow: #fcd656;
 	--dark-grey: #36382e;
+	--mq-md: 40rem;
+	--mq-sm: 20rem;
 }
 
 @font-face {

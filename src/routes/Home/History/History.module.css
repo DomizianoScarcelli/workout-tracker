@@ -12,9 +12,10 @@
 	display: flex;
 	background-color: white;
 	width: fit-content;
-	height: 270px;
+	max-height: 270px;
 	padding: 15px;
 	border-radius: 2rem;
+	flex-grow: 1;
 }
 
 .dayGrid,
