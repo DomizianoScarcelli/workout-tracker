@@ -22,7 +22,7 @@
 .horizontalContainer {
 	gap: 2%;
 	height: 100%;
-	width: 60%;
+	width: 100%;
 	justify-content: space-evenly;
 	display: flex;
 	flex-direction: row;

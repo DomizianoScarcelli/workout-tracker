@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import { motion } from "framer-motion"
+import React from "react"
 import styles from "./FrequencyChart.module.css"
 import moment from "moment"
 
@@ -66,7 +67,14 @@ export default function FrequencyChart() {
 					) : (
 						<div className={styles.infoContainer}>
 							<div className={styles.minutes}>{workout.minutes} min</div>
-							<div className={styles.chart} style={chartHeight(workout)}></div>
+							<motion.div
+								className={styles.chart}
+								animate={chartHeight(workout)}
+								initial={{
+									height: 0,
+								}}
+								transition={{ type: "spring", stiffness: 100 }}
+							></motion.div>
 							<div className={styles.day + " " + (isSelected(workout) ? styles.selected : "")}>{moment(workout.day).format("ddd DD")}</div>
 						</div>
 					)

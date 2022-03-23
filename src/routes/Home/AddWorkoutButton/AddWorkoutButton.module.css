@@ -14,7 +14,7 @@
 	cursor: pointer;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 1050px) {
 	.container {
 		max-width: 270px;
 		max-height: 270px;
