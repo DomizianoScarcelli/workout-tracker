@@ -27,4 +27,8 @@
 		flex-direction: column;
 		position: relative;
 	}
+
+	.flexCol {
+		margin-left: 2rem;
+	}
 }
