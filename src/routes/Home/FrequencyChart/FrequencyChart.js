@@ -2,6 +2,7 @@ import { motion } from "framer-motion"
 import React from "react"
 import styles from "./FrequencyChart.module.css"
 import moment from "moment"
+import { getDaysOfThisWeek } from "../../../utils/DateUtils"
 
 export default function FrequencyChart() {
 	let insertedChart = 0
@@ -38,16 +39,6 @@ export default function FrequencyChart() {
 			insertedChart += 1
 		}
 		return workout
-	}
-
-	const getDaysOfThisWeek = () => {
-		let days = []
-		let day = moment().startOf("isoWeek")
-		for (let i = 0; i < 7; i++) {
-			days.push(day.format("ddd DD"))
-			day.add(1, "day")
-		}
-		return days
 	}
 
 	const isSelected = (workout) => {
