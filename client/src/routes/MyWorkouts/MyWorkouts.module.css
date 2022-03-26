@@ -4,11 +4,12 @@
 	flex-direction: row;
 }
 
-.myWorkoutsContainer {
+.innerContainer {
 	background-color: white;
 	width: 80vw;
-	height: 80vh;
+	height: fit-content;
 	margin-left: 10rem;
+	padding-bottom: 2rem;
 	border-radius: 3rem;
 	display: flex;
 	flex-direction: column;
@@ -37,7 +38,9 @@
 	color: var(--dark-grey);
 	font-weight: bold;
 }
+
 .newWorkout {
+	cursor: pointer;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

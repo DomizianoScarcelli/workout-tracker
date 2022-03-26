@@ -1,4 +1,5 @@
 .container {
+	cursor: pointer;
 	border-radius: 1rem;
 	gap: 0.5rem;
 	width: calc(50% - 2rem);

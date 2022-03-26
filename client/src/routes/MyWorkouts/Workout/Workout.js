@@ -1,22 +1,49 @@
 import React from "react"
 import styles from "./Workout.module.css"
+import { motion } from "framer-motion"
 
 export default function Workout() {
+	//Represent a workout object, should be obtained from a server
+	//by making a call to an API that gets the workout's exercises by the workout's id
+	const workout = {
+		title: "Early Workout",
+		exercises: [
+			{
+				name: "Squats",
+				repetition: 25,
+			},
+			{
+				name: "Push-ups",
+				repetition: 10,
+			},
+			{
+				name: "Crunches",
+				repetition: 50,
+			},
+		],
+		duration: 25,
+	}
+
 	return (
-		<div className={styles.container}>
+		<motion.div
+			whileHover={{
+				scale: 1.1,
+			}}
+			className={styles.container}
+		>
 			<div>
-				<div className={styles.name}>Early Workout</div>
+				<div className={styles.name}>{workout.title}</div>
 				<div className={styles.exercises}>
-					<div className={styles.exercise}>25 Squats</div>
-					<div className={styles.exercise}>10 Push-ups</div>
-					<div className={styles.exercise}>50 Crunches</div>
+					{workout.exercises.map((exercise) => {
+						return <div className={styles.exercise}> {`${exercise.repetition} ${exercise.name}`}</div>
+					})}
 				</div>
 			</div>
 			<div className={styles.center}></div>
 			<div className={styles.right}>
-				<div className={styles.duration}>25 min</div>
+				<div className={styles.duration}>{`${workout.duration} min`}</div>
 				<div className={styles.arrow}></div>
 			</div>
-		</div>
+		</motion.div>
 	)
 }
