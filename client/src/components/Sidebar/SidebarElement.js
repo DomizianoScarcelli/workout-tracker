@@ -14,7 +14,7 @@ export default function SidebarElement(props) {
 		<div
 			className={classNames(styles.container, { [styles.after]: props.first }, { [styles.selected]: props.selected }, { [styles.before]: props.before })}
 			onClick={() => {
-				navigate("/" + props.icon, { replace: true })
+				navigate("/" + props.icon)
 			}}
 		>
 			<div style={iconImage} className={styles.icon}></div>

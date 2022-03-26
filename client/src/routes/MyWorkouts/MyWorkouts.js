@@ -3,8 +3,11 @@ import styles from "./MyWorkouts.module.css"
 import Sidebar from "../../components/Sidebar/Sidebar"
 import Workout from "./Workout/Workout"
 import { motion } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 
 export default function MyWorkouts() {
+	const navigate = useNavigate()
+
 	//Represent a list of workouts, should be obtained from a server
 	const workouts = [
 		{
@@ -52,6 +55,9 @@ export default function MyWorkouts() {
 						scale: 1.1,
 					}}
 					className={styles.newWorkout}
+					onClick={() => {
+						navigate("new-workout")
+					}}
 				>
 					<div className={styles.newWorkoutIcon}></div>
 					<div className={styles.newWorkoutTitle}>Create new workout</div>
