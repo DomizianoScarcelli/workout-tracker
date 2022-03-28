@@ -25,8 +25,10 @@ export default function AddWorkoutButton(props) {
 				//Variant when the AddWorkoutButton is in a grid
 				addWorkoutClick: {
 					backgroundColor: "white",
-					width: "100%",
-					height: "100vh",
+					width: "500px",
+					height: "1000px",
+					maxWidth: "2000px",
+					maxHeight: "2000px",
 				},
 		  }
 
