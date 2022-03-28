@@ -8,7 +8,7 @@
 	justify-content: center;
 	flex-wrap: wrap;
 	align-items: center;
-	margin-top: 15px;
+	/* margin-top: 15px; */
 	gap: 60px;
 	display: flex;
 	flex-direction: row;

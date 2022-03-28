@@ -6,9 +6,10 @@
 
 .innerContainer {
 	background-color: white;
-	width: 80vw;
-	height: fit-content;
+	margin-right: 10rem;
 	margin-left: 10rem;
+	width: 90vw;
+	height: fit-content;
 	padding-bottom: 2rem;
 	border-radius: 3rem;
 	display: flex;

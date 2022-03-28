@@ -6,15 +6,24 @@ import AddWorkoutButton from "./AddWorkoutButton/AddWorkoutButton"
 import FrequentExercises from "./FrequentExercises/FrequentExercises"
 import History from "./History/History"
 import FrequencyChart from "./FrequencyChart/FrequencyChart"
+import { useState } from "react"
 
 export default function Home() {
+	const [addWorkoutAnimation, setAddWorkoutAnimation] = useState(false)
+
 	return (
 		<div className={styles.container}>
 			<Sidebar selected={"home"} />
 			<div className={styles.flexCol}>
-				<DaySelector />
+				{!addWorkoutAnimation && <DaySelector addWorkoutAnimation={addWorkoutAnimation} />}
+
 				<div className={styles.flexRow}>
-					<AddWorkoutButton />
+					<AddWorkoutButton
+						addWorkoutAnimation={addWorkoutAnimation}
+						onClick={() => {
+							setAddWorkoutAnimation(!addWorkoutAnimation)
+						}}
+					/>
 					<FrequentExercises />
 					<History />
 				</div>

@@ -10,14 +10,32 @@ export default function FrequencyChart() {
 	//Represent the workouts relative to the selected time period, it emulates an eventual API response
 	const workouts = [
 		{
+			id: 1,
 			minutes: 45,
-			day: "2022-03-21T19:18:04+01:00",
+			day: "2022-03-28T19:18:04+01:00",
 		},
 		{
+			id: 2,
 			minutes: 30,
-			day: "2022-03-23T19:18:04+01:00",
+			day: "2022-03-30T19:18:04+01:00",
 		},
 		{
+			id: 3,
+			minutes: 5,
+			day: "2022-04-31T19:18:04+01:00",
+		},
+		{
+			id: 3,
+			minutes: 5,
+			day: "2022-03-26T19:18:04+01:00",
+		},
+		{
+			id: 3,
+			minutes: 5,
+			day: "2022-03-26T19:18:04+01:00",
+		},
+		{
+			id: 3,
 			minutes: 5,
 			day: "2022-03-26T19:18:04+01:00",
 		},

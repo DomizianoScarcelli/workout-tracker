@@ -1,9 +1,6 @@
 .container {
 	flex-grow: 1;
-	margin: 15px 0 15px 0;
-	/* height: 100%; */
-	/* width: 100%; */
-
+	margin: 0 0 15px 0;
 	min-width: 270px;
 	min-height: 270px;
 	background-color: var(--yellow);
