@@ -8,7 +8,9 @@ function App() {
 		<Routes>
 			<Route index element={<Home />} />
 			<Route path="/home" element={<Home />} />
-			<Route path="/my-workouts" element={<MyWorkouts />} />
+			<Route path="my-workouts" element={<MyWorkouts />}>
+				<Route path="new-workout" />
+			</Route>
 			<Route path="/analytics" element={<Sidebar selected={"analytics"} />} />
 			<Route path="/settings" element={<Sidebar selected={"settings"} />} />
 		</Routes>

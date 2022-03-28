@@ -3,8 +3,9 @@ import styles from "./MyWorkouts.module.css"
 import Sidebar from "../../components/Sidebar/Sidebar"
 import Workout from "./Workout/Workout"
 import { motion } from "framer-motion"
-import { useNavigate } from "react-router-dom"
+import { Routes, Route, useNavigate } from "react-router-dom"
 import { useQuery } from "../../hooks/useQuery"
+import NewWorkout from "./NewWorkout/NewWorkout"
 
 export default function MyWorkouts() {
 	const navigate = useNavigate()
@@ -47,27 +48,35 @@ export default function MyWorkouts() {
 	return (
 		<div className={styles.container}>
 			<Sidebar selected={"my-workouts"} />
-			<motion.div animate={{ scale: 1 }} initial={query.get("button") ? { scale: 1.1 } : ""} className={styles.innerContainer}>
-				<div className={styles.header}>
-					<div className={styles.headerIcon}></div>
-					<div className={styles.headerTitle}>My Workouts</div>
-				</div>
-				<motion.div
-					whileHover={{
-						scale: 1.1,
-					}}
-					className={styles.newWorkout}
-					onClick={() => {
-						navigate("new-workout")
-					}}
-				>
-					<div className={styles.newWorkoutIcon}></div>
-					<div className={styles.newWorkoutTitle}>Create new workout</div>
-				</motion.div>
-				{workouts.map((workout) => (
-					<Workout id={workout.id} />
-				))}
-			</motion.div>
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<motion.div animate={{ scale: 1 }} initial={query.get("button") ? { scale: 1.1 } : ""} className={styles.innerContainer}>
+							<div className={styles.header}>
+								<div className={styles.headerIcon}></div>
+								<div className={styles.headerTitle}>My Workouts</div>
+							</div>
+							<motion.div
+								whileHover={{
+									scale: 1.1,
+								}}
+								className={styles.newWorkout}
+								onClick={() => {
+									navigate("new-workout")
+								}}
+							>
+								<div className={styles.newWorkoutIcon}></div>
+								<div className={styles.newWorkoutTitle}>Create new workout</div>
+							</motion.div>
+							{workouts.map((workout) => (
+								<Workout id={workout.id} />
+							))}
+						</motion.div>
+					}
+				/>
+				<Route path="new-workout" element={<NewWorkout />} />
+			</Routes>
 		</div>
 	)
 }
