@@ -2,17 +2,33 @@ import React from "react"
 import styles from "./AddWorkoutButton.module.css"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
+import { useMediaQuery } from "../../../hooks/useMediaQuery"
+import { useContext } from "react"
+import { HomeContext } from "../Home"
 
 export default function AddWorkoutButton(props) {
+	const addWorkoutAnimation = useContext(HomeContext)
 	const navigate = useNavigate()
+	const isSingleColumn = useMediaQuery("(max-width: 1050px)")
+	// const isMultipleColumn = useMediaQuery("(min-width: 1050px)")
 
-	const morphVariants = {
-		addWorkoutClick: {
-			backgroundColor: "white",
-			width: "100%",
-			height: "100vw",
-		},
-	}
+	const morphVariants = isSingleColumn
+		? {
+				//Variant when the AddWorkoutButton is in a single column
+				addWorkoutClick: {
+					backgroundColor: "white",
+					width: "100%",
+					height: "100vh",
+				},
+		  }
+		: {
+				//Variant when the AddWorkoutButton is in a grid
+				addWorkoutClick: {
+					backgroundColor: "white",
+					width: "100%",
+					height: "100vh",
+				},
+		  }
 
 	return (
 		<motion.div
@@ -20,7 +36,7 @@ export default function AddWorkoutButton(props) {
 				scale: 1.1,
 			}}
 			variants={morphVariants}
-			animate={props.addWorkoutAnimation ? "addWorkoutClick" : ""}
+			animate={addWorkoutAnimation ? "addWorkoutClick" : ""}
 			onClick={() => {
 				props.onClick()
 				setTimeout(() => {
