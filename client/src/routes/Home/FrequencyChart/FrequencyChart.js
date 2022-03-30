@@ -20,40 +20,6 @@ export default function FrequencyChart() {
 		getWeeklyWorkouts()
 	}, [])
 
-	// //Represent the workouts relative to the selected time period, it emulates an eventual API response
-	// const workouts = [
-	// 	{
-	// 		id: 1,
-	// 		minutes: 45,
-	// 		day: "2022-03-28T19:18:04+01:00",
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		minutes: 30,
-	// 		day: "2022-03-30T19:18:04+01:00",
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		minutes: 5,
-	// 		day: "2022-04-31T19:18:04+01:00",
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		minutes: 5,
-	// 		day: "2022-03-26T19:18:04+01:00",
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		minutes: 5,
-	// 		day: "2022-03-26T19:18:04+01:00",
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		minutes: 5,
-	// 		day: "2022-03-26T19:18:04+01:00",
-	// 	},
-	// ]
-
 	const chartHeight = (workout) => {
 		return {
 			height: `${(workout.duration / 60) * 100}%`,
@@ -62,14 +28,27 @@ export default function FrequencyChart() {
 
 	const getWorkout = (day) => {
 		let workout = undefined
+		let duration = 0
+		console.log(day, insertedChart)
 		if (workouts[insertedChart] === undefined) {
-			return workout
+			return { workout, duration }
 		}
 		if (moment(workouts[insertedChart].date).format("ddd DD") === day) {
 			workout = workouts[insertedChart]
+			duration += workout.duration
 			insertedChart += 1
+			try {
+				while (moment(workouts[insertedChart].date).format("ddd DD") === day) {
+					workout = workouts[insertedChart]
+					duration += workouts[insertedChart].duration
+					insertedChart += 1
+				}
+			} catch {
+				return { workout, duration }
+			}
 		}
-		return workout
+		console.log(duration)
+		return { workout, duration }
 	}
 
 	const isSelected = (workout) => {
@@ -78,17 +57,18 @@ export default function FrequencyChart() {
 
 	return (
 		<div className={styles.container}>
+			{console.log("rendered")}
 			<div className={styles.label}>Workouts</div>
 			<div className={styles.horizontalContainer}>
 				{getDaysOfThisWeek().map((day) => {
-					const workout = getWorkout(day)
+					const { workout, duration } = getWorkout(day)
 					return workout === undefined ? (
 						<div className={styles.infoContainer}>
 							<div className={styles.day}>{day}</div>
 						</div>
 					) : (
 						<div className={styles.infoContainer}>
-							<div className={styles.minutes}>{workout.duration} min</div>
+							<div className={styles.minutes}>{duration} min</div>
 							<motion.div
 								className={styles.chart}
 								animate={chartHeight(workout)}
