@@ -1,6 +1,7 @@
 const router = require("express").Router()
 let Session = require("../models/session.model")
-var mongoose = require("mongoose")
+const mongoose = require("mongoose")
+const moment = require("moment")
 
 /**
  * Gets all the sessions in the DB
@@ -64,6 +65,14 @@ router.route("/addexercise/:session").post((req, res) => {
 	)
 		.then(() => res.json("Exercises added"))
 		.catch((err) => res.status(400).json("Error: " + err))
+})
+
+/**
+ * Gets all the user (specified inside the :username field) sessions of the current week
+ */
+router.route("/:username/weekly-workouts").get((req, res) => {
+	const username = req.params.username
+	Session.find({ user: username, date: { $gt: moment().startOf("isoWeek"), $lt: moment().endOf("isoWeek") } }).then((sessions) => res.json(sessions))
 })
 
 /**
