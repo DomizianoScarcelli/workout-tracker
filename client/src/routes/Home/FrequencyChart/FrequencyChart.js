@@ -65,7 +65,7 @@ export default function FrequencyChart() {
 		if (workouts[insertedChart] === undefined) {
 			return workout
 		}
-		if (moment(workouts[insertedChart].day).format("ddd DD") === day) {
+		if (moment(workouts[insertedChart].date).format("ddd DD") === day) {
 			workout = workouts[insertedChart]
 			insertedChart += 1
 		}
@@ -73,7 +73,7 @@ export default function FrequencyChart() {
 	}
 
 	const isSelected = (workout) => {
-		return moment().format("ddd DD") === moment(workout.day).format("ddd DD")
+		return moment().format("ddd DD") === moment(workout.date).format("ddd DD")
 	}
 
 	return (
@@ -97,7 +97,7 @@ export default function FrequencyChart() {
 								}}
 								transition={{ type: "spring", stiffness: 100 }}
 							></motion.div>
-							<div className={styles.day + " " + (isSelected(workout) ? styles.selected : "")}>{moment(workout.day).format("ddd DD")}</div>
+							<div className={styles.day + " " + (isSelected(workout) ? styles.selected : "")}>{moment(workout.date).format("ddd DD")}</div>
 						</div>
 					)
 				})}

@@ -72,7 +72,9 @@ router.route("/addexercise/:session").post((req, res) => {
  */
 router.route("/:username/weekly-workouts").get((req, res) => {
 	const username = req.params.username
-	Session.find({ user: username, date: { $gt: moment().startOf("isoWeek"), $lt: moment().endOf("isoWeek") } }).then((sessions) => res.json(sessions))
+	Session.find({ user: username, date: { $gt: moment().startOf("isoWeek"), $lt: moment().endOf("isoWeek") } })
+		.sort("date")
+		.then((sessions) => res.json(sessions))
 })
 
 /**
