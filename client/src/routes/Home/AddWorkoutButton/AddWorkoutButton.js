@@ -10,7 +10,6 @@ export default function AddWorkoutButton(props) {
 	const addWorkoutAnimation = useContext(HomeContext)
 	const navigate = useNavigate()
 	const isSingleColumn = useMediaQuery("(max-width: 1050px)")
-	// const isMultipleColumn = useMediaQuery("(min-width: 1050px)")
 
 	const morphVariants = isSingleColumn
 		? {

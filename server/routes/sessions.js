@@ -22,14 +22,24 @@ router.route("/").get((req, res) => {
  * Body requires a "duration" field
  */
 router.route("/create").post((req, res) => {
+	let exercises = []
+	if (exercises != undefined) {
+		exercises = req.body.exercises
+	}
 	const duration = req.body.duration
 	const user = req.body.user
 	const date = new Date()
-	const newSession = new Session({ duration, user, date })
+	const newSession = new Session({ exercises, duration, user, date })
 
 	newSession
 		.save()
-		.then(() => res.json("Session added"))
+		.then(() =>
+			res.json(`Session added with the following info:
+		exercises: ${exercises},
+		duration: ${duration},
+		user: ${user},
+		date: ${date}`)
+		)
 		.catch((err) => res.status(400).json("Error: " + err))
 })
 

@@ -1,5 +1,4 @@
 import SidebarElement from "./SidebarElement"
-import { useState } from "react"
 
 const parseString = (string) => {
 	const result = string.replace("-", " ")
@@ -29,7 +28,6 @@ const useRenderNavigation = (selected) => {
 			secondHalf.push(<SidebarElement name={name} icon={navArray[i]} />)
 		}
 	}
-	console.log([firstHalf, secondHalf])
 	return [firstHalf, secondHalf]
 }
 
