@@ -78,6 +78,16 @@ router.route("/:username/weekly-workouts").get((req, res) => {
 })
 
 /**
+ * Gets all the user (specified inside the :username field) sessions of the current month
+ */
+router.route("/:username/monthly-workouts").get((req, res) => {
+	const username = req.params.username
+	Session.find({ user: username, date: { $gt: moment().startOf("month"), $lt: moment().endOf("month") } })
+		.sort("date")
+		.then((sessions) => res.json(sessions))
+})
+
+/**
  * Gets all the session of a certain user
  */
 router.route("/:username").get((req, res) => {
