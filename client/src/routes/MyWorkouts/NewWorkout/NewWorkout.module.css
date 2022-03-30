@@ -82,8 +82,8 @@
 }
 
 .bottom::before {
-	flex-grow: 2;
-	height: 50vh;
+	flex-grow: 1;
+	height: max-content;
 	content: " ";
 }
 
@@ -125,4 +125,15 @@
 	width: 2rem;
 	height: 2rem;
 	border-radius: 10px;
+}
+
+@media screen and (max-width: 850px) {
+	.addAndSaveContainer {
+		flex-direction: column;
+	}
+	.save {
+		position: relative;
+		bottom: 0;
+		left: 0;
+	}
 }
