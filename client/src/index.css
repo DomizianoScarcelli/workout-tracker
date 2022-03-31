@@ -1,0 +1,38 @@
+:root {
+	--purple: #5161ce;
+	--light: #f0f6fb;
+	--yellow: #fcd656;
+	--dark-grey: #36382e;
+	--mq-md: 40rem;
+	--mq-sm: 20rem;
+}
+
+@font-face {
+	font-family: "Tw Cen MT";
+	src: url("../public/fonts/TCM.TTF");
+}
+
+body {
+	margin: 0;
+	font-family: "Tw Cen MT";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: var(--light);
+	/* overflow: hidden; */
+	user-select: none;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+	-moz-appearance: textfield;
+}
