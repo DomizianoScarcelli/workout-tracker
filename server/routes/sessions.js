@@ -101,11 +101,11 @@ router.route("/:username/monthly-workouts").get((req, res) => {
 
 /**
  * Return the total minutes of workout that the user has done in the selected day
- * Body requires a "day" field such as "2022-03-30T16:18:57.489Z"
+ * Query requires a "day" paramtere such as "2022-03-30"
  */
 router.route("/:username/workout-time-day").get(async (req, res) => {
 	const username = req.params.username
-	const day = moment(req.body.day)
+	const day = moment(req.query.day)
 	try {
 		const sessions = await Session.find({ user: username, date: { $gte: day.startOf("day").toDate(), $lte: day.endOf("day").toDate() } })
 		res.json(getOverallTime(sessions))
@@ -116,19 +116,13 @@ router.route("/:username/workout-time-day").get(async (req, res) => {
 
 /**
  * Return the total minutes of workout that the user has done in the selected time period
- * Body requires a "startTime" and a "endTime" field such as
+ * Query params are formatted as following: "YYYY-MM-DD"
  * The period inclued both the startTime and the endTime
- *
- * {
- *     "startTime": "2022-03-30T16:18:57.489Z",
- *     "endTime": 2022-04-10T16:18:57.489Z"
- * }
- *
  */
 router.route("/:username/workout-time-period").get(async (req, res) => {
 	const username = req.params.username
-	const startTime = moment(req.body.startTime)
-	const endTime = moment(req.body.endTime)
+	const startTime = moment(req.query.startTime)
+	const endTime = moment(req.query.endTime)
 	const daysBetween = daysBetweenInterval(startTime, endTime)
 	//Gets the overall workout time of every day and puts it into an object
 	let result = []
@@ -145,21 +139,25 @@ router.route("/:username/workout-time-period").get(async (req, res) => {
 })
 
 /**
+ * TODO:
  * Return the 10 most frequent exercises with their relative total repetition that the user
  * did in the inserted time period.
- * Body requires a "startTime" and a "endTime" field such as
+ *
+ * Query params are formatted as following: "YYYY-MM-DD"
  * The period inclued both the startTime and the endTime
- * {
- *     "startTime": "2022-03-30T16:18:57.489Z",
- *     "endTime": 2022-04-10T16:18:57.489Z"
- * }
  *
  */
 router.route("/:username/most-frequent-exercises").get(async (req, res) => {
 	const username = req.params.username
-	const startTime = moment(req.body.startTime)
-	const endTime = moment(req.body.endTime)
+	const startTime = moment(req.query.startTime)
+	const endTime = moment(req.query.endTime)
 	const daysBetween = daysBetweenInterval(startTime, endTime)
+	let result = []
+	for (let day of daysBetween) {
+		const sessions = await Session.find({ user: username, exercises: { $ne: [] }, date: { $gte: day.startOf("day").toDate(), $lte: day.endOf("day").toDate() } })
+		result.push(sessions)
+	}
+	res.json(result)
 })
 
 module.exports = router

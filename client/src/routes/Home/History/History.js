@@ -29,7 +29,6 @@ export default function History() {
 
 	const getWorkout = (day) => {
 		let workout = undefined
-		console.log(day, insertedChart)
 		if (workouts[insertedChart] === undefined) {
 			return workout
 		}
