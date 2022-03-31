@@ -3,6 +3,7 @@ let Session = require("../models/session.model")
 const mongoose = require("mongoose")
 const moment = require("moment")
 const getOverallTime = require("../utils/SessionsUtils")
+const daysBetweenInterval = require("../utils/DateTimeUtils")
 
 /**
  * Gets all the sessions in the DB
@@ -114,10 +115,10 @@ router.route("/:username/workout-time-day").get(async (req, res) => {
 })
 
 /**
- * TODO:
  * Return the total minutes of workout that the user has done in the selected time period
  * Body requires a "startTime" and a "endTime" field such as
  * The period inclued both the startTime and the endTime
+ *
  * {
  *     "startTime": "2022-03-30T16:18:57.489Z",
  *     "endTime": 2022-04-10T16:18:57.489Z"
@@ -128,14 +129,7 @@ router.route("/:username/workout-time-period").get(async (req, res) => {
 	const username = req.params.username
 	const startTime = moment(req.body.startTime)
 	const endTime = moment(req.body.endTime)
-	const daysBetween = []
-	currentDay = startTime.clone()
-	//Insert into daysBetween all the days that are between the startTime and endTime
-	while (currentDay <= endTime) {
-		daysBetween.push(currentDay.clone())
-		currentDay.add(1, "day")
-	}
-
+	const daysBetween = daysBetweenInterval(startTime, endTime)
 	//Gets the overall workout time of every day and puts it into an object
 	let result = []
 	try {
@@ -148,6 +142,24 @@ router.route("/:username/workout-time-period").get(async (req, res) => {
 	} catch (err) {
 		res.json(err.message)
 	}
+})
+
+/**
+ * Return the 10 most frequent exercises with their relative total repetition that the user
+ * did in the inserted time period.
+ * Body requires a "startTime" and a "endTime" field such as
+ * The period inclued both the startTime and the endTime
+ * {
+ *     "startTime": "2022-03-30T16:18:57.489Z",
+ *     "endTime": 2022-04-10T16:18:57.489Z"
+ * }
+ *
+ */
+router.route("/:username/most-frequent-exercises").get(async (req, res) => {
+	const username = req.params.username
+	const startTime = moment(req.body.startTime)
+	const endTime = moment(req.body.endTime)
+	const daysBetween = daysBetweenInterval(startTime, endTime)
 })
 
 module.exports = router
