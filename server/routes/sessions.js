@@ -2,9 +2,11 @@ const router = require("express").Router()
 let Session = require("../models/session.model")
 const mongoose = require("mongoose")
 const moment = require("moment")
+const getOverallTime = require("../utils/SessionsUtils")
 
 /**
  * Gets all the sessions in the DB
+ * The sessions can be filtered by id
  */
 router.route("/").get((req, res) => {
 	if (req.query.id != null) {
@@ -16,6 +18,15 @@ router.route("/").get((req, res) => {
 			.then((session) => res.json(session))
 			.catch((err) => res.status(400).json("Error: " + err))
 	}
+})
+
+/**
+ * Gets all the session of a certain user
+ */
+router.route("/:username").get((req, res) => {
+	Session.find({ user: req.params.username })
+		.then((session) => res.json(session))
+		.catch((err) => res.status(400).json("Error: " + err))
 })
 
 /**
@@ -88,12 +99,55 @@ router.route("/:username/monthly-workouts").get((req, res) => {
 })
 
 /**
- * Gets all the session of a certain user
+ * Return the total minutes of workout that the user has done in the selected day
+ * Body requires a "day" field such as "2022-03-30T16:18:57.489Z"
  */
-router.route("/:username").get((req, res) => {
-	Session.find({ user: req.params.username })
-		.then((session) => res.json(session))
-		.catch((err) => res.status(400).json("Error: " + err))
+router.route("/:username/workout-time-day").get(async (req, res) => {
+	const username = req.params.username
+	const day = moment(req.body.day)
+	try {
+		const sessions = await Session.find({ user: username, date: { $gte: day.startOf("day").toDate(), $lte: day.endOf("day").toDate() } })
+		res.json(getOverallTime(sessions))
+	} catch (err) {
+		res.json(err.message)
+	}
+})
+
+/**
+ * TODO:
+ * Return the total minutes of workout that the user has done in the selected time period
+ * Body requires a "startTime" and a "endTime" field such as
+ * The period inclued both the startTime and the endTime
+ * {
+ *     "startTime": "2022-03-30T16:18:57.489Z",
+ *     "endTime": 2022-04-10T16:18:57.489Z"
+ * }
+ *
+ */
+router.route("/:username/workout-time-period").get(async (req, res) => {
+	const username = req.params.username
+	const startTime = moment(req.body.startTime)
+	const endTime = moment(req.body.endTime)
+	const daysBetween = []
+	currentDay = startTime.clone()
+	//Insert into daysBetween all the days that are between the startTime and endTime
+	while (currentDay <= endTime) {
+		daysBetween.push(currentDay.clone())
+		currentDay.add(1, "day")
+	}
+
+	//Gets the overall workout time of every day and puts it into an object
+	let result = []
+	try {
+		for (const day of daysBetween) {
+			const sessions = await Session.find({ user: username, date: { $gte: day.startOf("day").toDate(), $lte: day.endOf("day").toDate() } })
+			result.push({ date: day, duration: getOverallTime(sessions) })
+		}
+		console.log(result)
+		res.json(result)
+	} catch (err) {
+		res.json(err.message)
+	}
 })
 
 module.exports = router
