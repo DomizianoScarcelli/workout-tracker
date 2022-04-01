@@ -20,13 +20,6 @@ export default function History() {
 		getMonthlyWorkouts()
 	}, [])
 
-	//Old workout object
-	// 	{
-	// 		minutes: 5,
-	// 		day: "2022-03-05T19:18:04+01:00",
-	// 	},
-	//
-
 	const getWorkout = (day) => {
 		let workout = undefined
 		if (workouts[insertedChart] === undefined) {
