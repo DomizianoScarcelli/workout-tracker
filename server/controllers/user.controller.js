@@ -23,6 +23,6 @@ exports.addUser = async (req, res) => {
 		passowrd: ${password}
 		email: ${email}`)
 	} catch (err) {
-		res.status(400).json("Error: " + err)
+		res.status(400).json("Error: " + err.message)
 	}
 }
