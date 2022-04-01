@@ -2,7 +2,7 @@ const router = require("express").Router()
 let Session = require("../models/session.model")
 const mongoose = require("mongoose")
 const moment = require("moment")
-const getOverallTime = require("../utils/SessionsUtils")
+const { getOverallTime, getExerciseIndexIfExists } = require("../utils/SessionsUtils")
 const daysBetweenInterval = require("../utils/DateTimeUtils")
 
 /**
@@ -101,7 +101,7 @@ router.route("/:username/monthly-workouts").get((req, res) => {
 
 /**
  * Return the total minutes of workout that the user has done in the selected day
- * Query requires a "day" paramtere such as "2022-03-30"
+ * Query params are formatted as following: "YYYY-MM-DD"
  */
 router.route("/:username/workout-time-day").get(async (req, res) => {
 	const username = req.params.username
@@ -139,12 +139,28 @@ router.route("/:username/workout-time-period").get(async (req, res) => {
 })
 
 /**
- * TODO:
+ * TODO: Work in progress
  * Return the 10 most frequent exercises with their relative total repetition that the user
  * did in the inserted time period.
  *
  * Query params are formatted as following: "YYYY-MM-DD"
  * The period inclued both the startTime and the endTime
+ *
+ *[
+		{
+			name: "Push Ups",
+			repetition: 200,
+		},
+		{
+			name: "Crunches",
+			repetition: 140,
+		},
+		{
+			name: "Squats",
+			repetition: 120,
+		},
+	]
+ *
  *
  */
 router.route("/:username/most-frequent-exercises").get(async (req, res) => {
@@ -155,8 +171,24 @@ router.route("/:username/most-frequent-exercises").get(async (req, res) => {
 	let result = []
 	for (let day of daysBetween) {
 		const sessions = await Session.find({ user: username, exercises: { $ne: [] }, date: { $gte: day.startOf("day").toDate(), $lte: day.endOf("day").toDate() } })
-		result.push(sessions)
+		for (let workout of sessions) {
+			if (workout.exercises == undefined) return
+			for (let exercise of workout.exercises) {
+				if (!getExerciseIndexIfExists(result, exercise.name)) {
+					result.push({ name: exercise.name, repetition: exercise.repetition })
+				} else {
+					result[getExerciseIndexIfExists(result, exercise.name)].repetition += exercise.repetition //Questo coso da errore
+				}
+			}
+		}
 	}
+	result
+		.sort((a, b) => {
+			if (a.repetition > b.repetition) return 1
+			if (a.repetition < b.repetition) return -1
+			return 0
+		})
+		.reverse()
 	res.json(result)
 })
 
