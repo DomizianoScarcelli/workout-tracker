@@ -41,6 +41,8 @@ exports.getWorkoutTime = async (username, startDate, endDate) => {
 	return result
 }
 
+//TODO: find a more efficient way of solving this problem
+//TODO: it sometimes return duplicated names
 exports.getUserMostFrequentExercises = async (username, startTime, endTime) => {
 	const daysBetween = daysBetweenInterval(startTime, endTime)
 	let result = []
