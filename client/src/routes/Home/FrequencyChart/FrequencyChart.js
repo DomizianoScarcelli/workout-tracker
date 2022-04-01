@@ -7,10 +7,14 @@ import axios from "axios"
 
 export default function FrequencyChart() {
 	const [workoutTimeArray, setWorkoutTimeArray] = useState([])
+	const [maxWorkoutMinutes, setMaxWorkoutMinutes] = useState(0)
 
 	const getWorkoutMinutes = async (startTime, endTime) => {
 		const username = "DovivoD"
 		const res = await axios.get(`http://localhost:8080/sessions/${username}/workout-time-period?startTime=${startTime}&endTime=${endTime}`)
+		for (let workout of res.data) {
+			if (workout.duration > maxWorkoutMinutes) setMaxWorkoutMinutes(workout.duration)
+		}
 		setWorkoutTimeArray(res.data)
 	}
 
@@ -21,8 +25,10 @@ export default function FrequencyChart() {
 	}, [])
 
 	const chartHeight = (duration) => {
+		const max = Math.floor(maxWorkoutMinutes / 60)
+		console.log(max)
 		return {
-			height: `${(duration / 60) * 100}%`,
+			height: `${(duration / (60 * max)) * 100}%`,
 		}
 	}
 
