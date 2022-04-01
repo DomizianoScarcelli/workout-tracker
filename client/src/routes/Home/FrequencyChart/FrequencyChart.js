@@ -12,10 +12,10 @@ export default function FrequencyChart() {
 	const getWorkoutMinutes = async (startTime, endTime) => {
 		const username = "DovivoD"
 		const res = await axios.get(`http://localhost:8080/sessions/${username}/workout-time-period?startTime=${startTime}&endTime=${endTime}`)
+		setWorkoutTimeArray(res.data)
 		for (let workout of res.data) {
 			if (workout.duration > maxWorkoutMinutes) setMaxWorkoutMinutes(workout.duration)
 		}
-		setWorkoutTimeArray(res.data)
 	}
 
 	useEffect(() => {
