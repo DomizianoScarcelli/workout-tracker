@@ -4,7 +4,7 @@ import { motion, AnimateSharedLayout } from "framer-motion"
 
 export default function DaySelector() {
 	const [isVisible, setVisible] = useState(false)
-	const days = ["Today", "This week", "This month", "This year", "Custom"]
+	const days = ["Week", "Month", "Year"]
 	const [selectedDay, setSelectedDay] = useState(days[0])
 	const [hoveredDay, setHoveredDay] = useState(null)
 

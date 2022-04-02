@@ -7,6 +7,7 @@ import FrequentExercises from "./FrequentExercises/FrequentExercises"
 import History from "./History/History"
 import FrequencyChart from "./FrequencyChart/FrequencyChart"
 import { useState, createContext } from "react"
+import CurrentPeriod from "../../components/CurrentPeriod/CurrentPeriod"
 
 export const HomeContext = createContext()
 
@@ -18,7 +19,12 @@ export default function Home() {
 			<div className={styles.container}>
 				<Sidebar selected={"home"} />
 				<div className={styles.flexCol}>
-					{!addWorkoutAnimation && <DaySelector addWorkoutAnimation={addWorkoutAnimation} />}
+					{!addWorkoutAnimation && (
+						<>
+							<DaySelector addWorkoutAnimation={addWorkoutAnimation} />
+							<CurrentPeriod />
+						</>
+					)}
 
 					<div className={styles.flexRow}>
 						<AddWorkoutButton
