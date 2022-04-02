@@ -20,10 +20,10 @@ export default function Home() {
 				<Sidebar selected={"home"} />
 				<div className={styles.flexCol}>
 					{!addWorkoutAnimation && (
-						<>
+						<div className={styles.period}>
 							<DaySelector addWorkoutAnimation={addWorkoutAnimation} />
 							<CurrentPeriod />
-						</>
+						</div>
 					)}
 
 					<div className={styles.flexRow}>
