@@ -21,8 +21,8 @@ export default function Home() {
 				<div className={styles.flexCol}>
 					{!addWorkoutAnimation && (
 						<div className={styles.period}>
-							<DaySelector addWorkoutAnimation={addWorkoutAnimation} />
-							<CurrentPeriod />
+							<DaySelector addWorkoutAnimation={addWorkoutAnimation} period={"isoWeek"} />
+							<CurrentPeriod period={"isoWeek"} />
 						</div>
 					)}
 
