@@ -49,24 +49,24 @@ export default function NewWorkout() {
 	}
 
 	const addNewSession = async () => {
-		// try {
-		// 	validateData()
-		// } catch (err) {
-		// 	switch (err.message) {
-		// 		case "Empty exercises":
-		// 			console.error("Validation error: Empty exercises")
-		// 			//do something
-		// 			break
-		// 		case "Empty duration":
-		// 			console.error("Validation error: Empty exercises")
-		// 			break
-		// 		//do something
-		// 		default:
-		// 			console.error("Other error: " + err.message)
-		// 			break
-		// 	}
-		// 	return
-		// }
+		try {
+			validateData()
+		} catch (err) {
+			switch (err.message) {
+				case "Empty exercises":
+					console.error("Validation error: Empty exercises")
+					//do something
+					break
+				case "Empty duration":
+					console.error("Validation error: Empty exercises")
+					break
+				//do something
+				default:
+					console.error("Other error: " + err.message)
+					break
+			}
+			return
+		}
 		const username = "DovivoD"
 		const duration = durationRef.current.value
 		let postExercise = []

@@ -6,47 +6,27 @@ import { motion } from "framer-motion"
 import { Routes, Route, useNavigate } from "react-router-dom"
 import { useQuery } from "../../hooks/useQuery"
 import NewWorkout from "./NewWorkout/NewWorkout"
+import axios from "axios"
+import { useEffect, useState } from "react"
 
 export default function MyWorkouts() {
 	const navigate = useNavigate()
 	const query = useQuery()
+	const [workouts, setWorkouts] = useState([])
 
-	//Represent a list of workouts, should be obtained from a server
-	const workouts = [
-		{
-			id: 1,
-			minutes: 45,
-			day: "2022-04-28T19:18:04+01:00",
-		},
-		{
-			id: 2,
-			minutes: 30,
-			day: "2022-04-30T19:18:04+01:00",
-		},
-		{
-			id: 3,
-			minutes: 5,
-			day: "2022-04-31T19:18:04+01:00",
-		},
-		{
-			id: 3,
-			minutes: 5,
-			day: "2022-03-26T19:18:04+01:00",
-		},
-		{
-			id: 3,
-			minutes: 5,
-			day: "2022-03-26T19:18:04+01:00",
-		},
-		{
-			id: 3,
-			minutes: 5,
-			day: "2022-03-26T19:18:04+01:00",
-		},
-	]
+	const getUserSavedWorkouts = async () => {
+		const username = "DovivoD"
+		const res = await axios.get(`http://localhost:8080/users/info/${username}`)
+		setWorkouts(res.data[0].savedWorkouts)
+	}
+
+	useEffect(() => {
+		getUserSavedWorkouts()
+	}, [])
 
 	return (
 		<div className={styles.container}>
+			{console.log(workouts)}
 			<Sidebar selected={"my-workouts"} />
 			<Routes>
 				<Route
@@ -70,7 +50,7 @@ export default function MyWorkouts() {
 								<div className={styles.newWorkoutTitle}>Create new workout</div>
 							</motion.div>
 							{workouts.map((workout) => (
-								<Workout id={workout.id} />
+								<Workout exercises={workout.exercises} name={workout.name} duration={workout.duration} />
 							))}
 						</motion.div>
 					}
