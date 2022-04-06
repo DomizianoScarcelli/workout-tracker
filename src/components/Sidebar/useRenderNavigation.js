@@ -5,7 +5,7 @@ const parseString = (string) => {
 	return result.charAt(0).toUpperCase() + result.slice(1)
 }
 const useRenderNavigation = (selected) => {
-	const navArray = ["home", "my-workouts", "analytics", "settings"]
+	const navArray = ["home", "my-workouts", "history", "analytics", "settings"]
 	let firstHalf = []
 	let secondHalf = []
 

@@ -28,6 +28,7 @@ function App() {
 				<Route path="new-workout" />
 			</Route>
 			<Route path="/analytics" element={<Sidebar selected={"analytics"} />} />
+			<Route path="/history" element={<Sidebar selected={"history"} />} />
 			<Route path="/settings" element={<Sidebar selected={"settings"} />} />
 		</Routes>
 	)
