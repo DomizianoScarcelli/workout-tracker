@@ -1,14 +1,42 @@
 import React from "react"
 import styles from "./NewWorkout.module.css"
 import axios from "axios"
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 
 export default function NewWorkout() {
 	const durationRef = useRef(null)
+	const nameRefs = useRef([])
+	const repetitionRefs = useRef([])
 	const [exercises, setExercises] = useState([])
 
+	useEffect(() => {
+		if (localStorage.getItem("exercises") !== null) setExercises(JSON.parse(localStorage.getItem("exercises")))
+	}, [])
+
+	const updateExerciseName = (index, name) => {
+		exercises[index].name = name
+		localStorage.setItem("exercises", JSON.stringify([...exercises]))
+		setExercises([...exercises])
+	}
+
+	const updateExerciseRepetition = (index, repetition) => {
+		exercises[index].repetition = repetition
+		localStorage.setItem("exercises", JSON.stringify([...exercises]))
+		setExercises([...exercises])
+	}
+
 	const addExerciseToView = () => {
-		setExercises([...exercises, { name: "Name", repetition: 0 }])
+		const newExercises = [...exercises, { name: "", repetition: 0 }]
+		localStorage.setItem("exercises", JSON.stringify(newExercises))
+		setExercises(newExercises)
+	}
+
+	const removeWorkout = (index) => {
+		exercises.splice(index, 1)
+		const newExercises = [...exercises]
+		localStorage.setItem("exercises", JSON.stringify(newExercises))
+		console.log(JSON.stringify(newExercises))
+		setExercises(newExercises)
 	}
 
 	const validateData = () => {
@@ -50,12 +78,29 @@ export default function NewWorkout() {
 		<div className={styles.container}>
 			<div className={styles.title}>Monday Workout</div>
 			<div className={styles.exercises}>
-				{exercises.map((exercise) => {
+				{exercises.map((exercise, index) => {
 					return (
 						<div className={styles.exercise}>
 							<div className={styles.dragIcon} />
-							<input type="number" placeholder="20" className={styles.repetition} />
-							<div className={styles.name}>{exercise.name}</div>
+							<input
+								ref={(element) => (repetitionRefs.current[index] == null ? repetitionRefs.current.push(element) : repetitionRefs.current[index])}
+								type="number"
+								value={exercise.repetition}
+								onChange={() => updateExerciseRepetition(index, repetitionRefs.current[index].value)}
+								className={styles.repetition}
+							/>
+							<input
+								ref={(element) => nameRefs.current.push(element)}
+								value={exercise.name === "" ? "" : exercise.name}
+								onChange={() => {
+									updateExerciseName(index, nameRefs.current[index].value)
+								}}
+								type="text"
+								placeholder="Push up"
+								className={styles.nameEdit}
+							/>
+
+							<div className={styles.removeButton} onClick={() => removeWorkout(index)}></div>
 						</div>
 					)
 				})}
