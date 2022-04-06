@@ -2,7 +2,7 @@ import { React, useState } from "react"
 import styles from "./DaySelector.module.css"
 import { motion, AnimateSharedLayout } from "framer-motion"
 
-export default function DaySelector() {
+export default function DaySelector(props) {
 	const [isVisible, setVisible] = useState(false)
 	const days = ["Week", "Month", "Year"]
 	const [selectedDay, setSelectedDay] = useState(days[0])

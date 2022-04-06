@@ -9,7 +9,7 @@ export default function FrequentExercises() {
 	const getUserMostFrequentExercises = async (startTime, endTime) => {
 		const username = "DovivoD"
 		const res = await axios.get(`http://localhost:8080/sessions/${username}/most-frequent-exercises?startTime=${startTime}&endTime=${endTime}`)
-		setExercises(res.data)
+		setExercises(res.data.slice(0, 4))
 	}
 
 	useEffect(() => {
