@@ -1,43 +1,46 @@
 import React from "react"
 import styles from "./CurrentPeriod.module.css"
 import moment from "moment"
-import { useState } from "react"
+import { useContext } from "react"
+import { HomeContext } from "../../routes/Home/Home"
 
 const CurrentPeriod = (props) => {
-	const [dayOfRef, setDayOfRef] = useState(moment().format())
+	const { dayOfRef, period } = useContext(HomeContext)
+	const [day, setDay] = dayOfRef
+	const [statePeriod, setStatePeriod] = period
 
 	const formatCurrentPeriod = () => {
-		const startDate = moment(dayOfRef).startOf(props.period)
-		const endDate = moment(dayOfRef).endOf(props.period)
+		const startDate = moment(day).startOf(statePeriod)
+		const endDate = moment(day).endOf(statePeriod)
 		console.log(startDate, endDate)
 		return startDate.format("DD/MM/YYYY") + " - " + endDate.format("DD/MM/YYYY")
 	}
 
 	const goToPreviousPeriod = () => {
-		switch (props.period) {
+		switch (statePeriod) {
 			case "isoWeek":
-				setDayOfRef(moment(dayOfRef).subtract(7, "day"))
+				setDay(moment(day).subtract(7, "day"))
 				break
 			case "month":
-				setDayOfRef(moment(dayOfRef).subtract(1, "month"))
+				setDay(moment(day).subtract(1, "month"))
 				break
 			case "year":
-				setDayOfRef(moment(dayOfRef).subtract(1, "year"))
+				setDay(moment(day).subtract(1, "year"))
 				break
 			default:
 				break
 		}
 	}
 	const goToNextPeriod = () => {
-		switch (props.period) {
+		switch (statePeriod) {
 			case "isoWeek":
-				setDayOfRef(moment(dayOfRef).add(7, "day"))
+				setDay(moment(day).add(7, "day"))
 				break
 			case "month":
-				setDayOfRef(moment(dayOfRef).add(1, "month"))
+				setDay(moment(day).add(1, "month"))
 				break
 			case "year":
-				setDayOfRef(moment(dayOfRef).add(1, "year"))
+				setDay(moment(day).add(1, "year"))
 				break
 			default:
 				break

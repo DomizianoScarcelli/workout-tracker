@@ -7,7 +7,7 @@ import { useContext } from "react"
 import { HomeContext } from "../Home"
 
 export default function AddWorkoutButton(props) {
-	const addWorkoutAnimation = useContext(HomeContext)
+	const { addWorkoutAnimation } = useContext(HomeContext)
 	const navigate = useNavigate()
 	const isSingleColumn = useMediaQuery("(max-width: 1050px)")
 

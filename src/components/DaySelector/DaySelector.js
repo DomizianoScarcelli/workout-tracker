@@ -1,12 +1,32 @@
-import { React, useState } from "react"
+import { React, useState, useContext } from "react"
 import styles from "./DaySelector.module.css"
 import { motion, AnimateSharedLayout } from "framer-motion"
+import { HomeContext } from "../../routes/Home/Home"
 
 export default function DaySelector(props) {
+	const { period } = useContext(HomeContext)
+	const [statePeriod, setStatePeriod] = period
 	const [isVisible, setVisible] = useState(false)
 	const days = ["Week", "Month", "Year"]
 	const [selectedDay, setSelectedDay] = useState(days[0])
 	const [hoveredDay, setHoveredDay] = useState(null)
+
+	const changeSelectedPeriod = (selectedPeriod) => {
+		switch (selectedPeriod) {
+			case "Week":
+				setStatePeriod("week")
+				break
+			case "Month":
+				setStatePeriod("month")
+				break
+			case "Year":
+				setStatePeriod("year")
+				break
+			default:
+				break
+		}
+		setSelectedDay(selectedPeriod)
+	}
 
 	const daySelectorVariants = {
 		hidden: {
@@ -59,7 +79,7 @@ export default function DaySelector(props) {
 										setHoveredDay(selectedDay)
 									}}
 									onClick={() => {
-										setSelectedDay(day)
+										changeSelectedPeriod(day)
 									}}
 									className={styles.daySelector}
 								>

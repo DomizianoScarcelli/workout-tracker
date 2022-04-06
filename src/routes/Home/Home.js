@@ -8,21 +8,24 @@ import History from "./History/History"
 import FrequencyChart from "./FrequencyChart/FrequencyChart"
 import { useState, createContext } from "react"
 import CurrentPeriod from "../../components/CurrentPeriod/CurrentPeriod"
+import moment from "moment"
 
 export const HomeContext = createContext()
 
 export default function Home() {
 	const [addWorkoutAnimation, setAddWorkoutAnimation] = useState(false)
+	const [dayOfRef, setDayOfRef] = useState(moment().format())
+	const [period, setPeriod] = useState("isoWeek")
 
 	return (
-		<HomeContext.Provider value={addWorkoutAnimation}>
+		<HomeContext.Provider value={{ addWorkoutAnimation: addWorkoutAnimation, dayOfRef: [dayOfRef, setDayOfRef], period: [period, setPeriod] }}>
 			<div className={styles.container}>
 				<Sidebar selected={"home"} />
 				<div className={styles.flexCol}>
 					{!addWorkoutAnimation && (
 						<div className={styles.period}>
-							<DaySelector addWorkoutAnimation={addWorkoutAnimation} period={"isoWeek"} />
-							<CurrentPeriod period={"isoWeek"} />
+							<DaySelector addWorkoutAnimation={addWorkoutAnimation} />
+							<CurrentPeriod />
 						</div>
 					)}
 
