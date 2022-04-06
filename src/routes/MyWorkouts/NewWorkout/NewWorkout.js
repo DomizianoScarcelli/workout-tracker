@@ -7,7 +7,7 @@ export default function NewWorkout() {
 	const durationRef = useRef(null)
 	const nameRefs = useRef([])
 	const repetitionRefs = useRef([])
-	const [exercises, setExercises] = useState([])
+	const [exercises, setExercises] = useState(localStorage.getItem("exercises") ? JSON.parse(localStorage.getItem("exercises")) : [])
 	const [save, setSave] = useState(localStorage.getItem("saved") === "true" ? true : false)
 
 	useEffect(() => {
@@ -49,31 +49,39 @@ export default function NewWorkout() {
 	}
 
 	const addNewSession = async () => {
-		try {
-			validateData()
-		} catch (err) {
-			switch (err.message) {
-				case "Empty exercises":
-					console.error("Validation error: Empty exercises")
-					//do something
-					break
-				case "Empty duration":
-					console.error("Validation error: Empty exercises")
-					break
-				//do something
-				default:
-					console.error("Other error: " + err.message)
-					break
-			}
-			return
-		}
+		// try {
+		// 	validateData()
+		// } catch (err) {
+		// 	switch (err.message) {
+		// 		case "Empty exercises":
+		// 			console.error("Validation error: Empty exercises")
+		// 			//do something
+		// 			break
+		// 		case "Empty duration":
+		// 			console.error("Validation error: Empty exercises")
+		// 			break
+		// 		//do something
+		// 		default:
+		// 			console.error("Other error: " + err.message)
+		// 			break
+		// 	}
+		// 	return
+		// }
 		const username = "DovivoD"
 		const duration = durationRef.current.value
+		let postExercise = []
+		for (let index = 0; index < repetitionRefs.current.length; index++) {
+			postExercise.push({
+				name: nameRefs.current[index].value,
+				repetition: repetitionRefs.current[index].value,
+			})
+		}
 		const res = await axios.post("http://localhost:8080/sessions/create", {
-			exercises: exercises,
+			exercises: postExercise,
 			duration: duration,
 			user: username,
 		})
+		console.log(res)
 	}
 	return (
 		<div className={styles.container}>
@@ -91,8 +99,8 @@ export default function NewWorkout() {
 								className={styles.repetition}
 							/>
 							<input
-								ref={(element) => nameRefs.current.push(element)}
-								value={exercise.name === "" ? "" : exercise.name}
+								ref={(element) => (nameRefs.current[index] == null ? nameRefs.current.push(element) : nameRefs.current[index])}
+								value={exercise.name}
 								onChange={() => {
 									updateExerciseName(index, nameRefs.current[index].value)
 								}}
