@@ -8,6 +8,7 @@ export default function NewWorkout() {
 	const nameRefs = useRef([])
 	const repetitionRefs = useRef([])
 	const [exercises, setExercises] = useState([])
+	const [save, setSave] = useState(localStorage.getItem("saved") === "true" ? true : false)
 
 	useEffect(() => {
 		if (localStorage.getItem("exercises") !== null) setExercises(JSON.parse(localStorage.getItem("exercises")))
@@ -118,7 +119,13 @@ export default function NewWorkout() {
 
 				<div className={styles.save}>
 					<div>Save</div>
-					<div className={styles.saveButton}></div>
+					<div
+						className={styles.saveButton + " " + (save ? styles.checked : "")}
+						onClick={() => {
+							localStorage.setItem("saved", !save)
+							setSave(!save)
+						}}
+					></div>
 				</div>
 				<div className={styles.addButton} onClick={addNewSession}>
 					Add
