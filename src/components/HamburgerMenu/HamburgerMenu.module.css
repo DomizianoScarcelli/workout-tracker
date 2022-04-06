@@ -1,44 +1,44 @@
 /* Hamburger animation source: https://codepen.io/RRoberts/pen/ZBYaJr */
 .hamburger {
-  cursor: pointer;
-  z-index: 1;
-  position: absolute;
-  top: -3rem;
-  left: 1rem;
+	cursor: pointer;
+	z-index: 1;
+	position: absolute;
+	top: 2rem;
+	left: 2rem;
 }
 
 .line {
-  width: 25px;
-  height: 3px;
-  background-color: var(--dark-grey);
-  display: block;
-  margin: 4px;
-  -webkit-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+	width: 25px;
+	height: 3px;
+	background-color: var(--dark-grey);
+	display: block;
+	margin: 4px;
+	-webkit-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
 }
 
 .isActive .line:nth-child(2) {
-  opacity: 0;
+	opacity: 0;
 }
 
 .isActive .line:nth-child(1) {
-  -webkit-transform: translateY(7px) rotate(45deg);
-  -ms-transform: translateY(7px) rotate(45deg);
-  -o-transform: translateY(7px) rotate(45deg);
-  transform: translateY(7px) rotate(45deg);
+	-webkit-transform: translateY(7px) rotate(45deg);
+	-ms-transform: translateY(7px) rotate(45deg);
+	-o-transform: translateY(7px) rotate(45deg);
+	transform: translateY(7px) rotate(45deg);
 }
 
 .isActive .line:nth-child(3) {
-  -webkit-transform: translateY(-7px) rotate(-45deg);
-  -ms-transform: translateY(-7px) rotate(-45deg);
-  -o-transform: translateY(-7px) rotate(-45deg);
-  transform: translateY(-7px) rotate(-45deg);
+	-webkit-transform: translateY(-7px) rotate(-45deg);
+	-ms-transform: translateY(-7px) rotate(-45deg);
+	-o-transform: translateY(-7px) rotate(-45deg);
+	transform: translateY(-7px) rotate(-45deg);
 }
 
 /* End of animation */
 @media screen and (max-width: 1000px) {
-  .hamburger {
-    visibility: visible;
-  }
+	.hamburger {
+		visibility: visible;
+	}
 }

@@ -26,7 +26,6 @@ export default function MyWorkouts() {
 
 	return (
 		<div className={styles.container}>
-			{console.log(workouts)}
 			<Sidebar selected={"my-workouts"} />
 			<Routes>
 				<Route
