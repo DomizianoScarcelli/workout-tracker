@@ -48,6 +48,18 @@ export default function NewWorkout() {
 		//Return errors if the fields are not properly completed
 	}
 
+	const saveWorkout = async () => {
+		const username = "DovivoD"
+		const duration = durationRef.current.value
+		const name = "Workout test api"
+		const res = await axios.post(`http://localhost:8080/users/${username}/saved-workouts/add`, {
+			name: name,
+			exercises: exercises,
+			duration: duration,
+		})
+		console.log(res.data)
+	}
+
 	const addNewSession = async () => {
 		try {
 			validateData()
@@ -76,12 +88,14 @@ export default function NewWorkout() {
 				repetition: repetitionRefs.current[index].value,
 			})
 		}
-		const res = await axios.post("http://localhost:8080/sessions/create", {
+		await axios.post("http://localhost:8080/sessions/create", {
 			exercises: postExercise,
 			duration: duration,
 			user: username,
 		})
-		console.log(res)
+		if (save) {
+			await saveWorkout()
+		}
 	}
 	return (
 		<div className={styles.container}>
