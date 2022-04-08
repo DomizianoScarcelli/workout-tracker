@@ -34,6 +34,18 @@
 	align-items: center;
 }
 
+.addSerie {
+	padding: 2px 10px;
+	width: 2rem;
+	border-radius: 5px;
+	min-width: fit-content;
+	cursor: pointer;
+	border: dashed #0000003b 1px;
+	height: 2rem;
+	place-items: center;
+	display: grid;
+}
+
 .addExercise {
 	min-width: 10rem;
 	cursor: pointer;

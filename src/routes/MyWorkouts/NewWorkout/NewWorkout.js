@@ -6,11 +6,12 @@ import { useRef, useState, useEffect } from "react"
 export default function NewWorkout() {
 	const durationRef = useRef(null)
 	const nameRefs = useRef([])
-	const repetitionRefs = useRef([])
+	const repetitionRefs = useRef({})
 	const [exercises, setExercises] = useState(localStorage.getItem("exercises") ? JSON.parse(localStorage.getItem("exercises")) : [])
 	const [save, setSave] = useState(localStorage.getItem("saved") === "true" ? true : false)
 
 	useEffect(() => {
+		console.log(repetitionRefs)
 		if (localStorage.getItem("exercises") !== null) setExercises(JSON.parse(localStorage.getItem("exercises")))
 	}, [])
 
@@ -20,14 +21,22 @@ export default function NewWorkout() {
 		setExercises([...exercises])
 	}
 
-	const updateExerciseRepetition = (index, repetition) => {
-		exercises[index].repetition = repetition
+	const updateExerciseRepetition = (index, repetition, repetitionIndex) => {
+		console.log(repetitionRefs)
+		exercises[index].repetition[repetitionIndex] = repetition
 		localStorage.setItem("exercises", JSON.stringify([...exercises]))
 		setExercises([...exercises])
 	}
 
 	const addExerciseToView = () => {
-		const newExercises = [...exercises, { name: "", repetition: 0 }]
+		const newExercises = [...exercises, { name: "", repetition: [0] }]
+		localStorage.setItem("exercises", JSON.stringify(newExercises))
+		setExercises(newExercises)
+	}
+
+	const addSerieToExercise = (index) => {
+		const newExercises = [...exercises]
+		newExercises[index].repetition.push(0)
 		localStorage.setItem("exercises", JSON.stringify(newExercises))
 		setExercises(newExercises)
 	}
@@ -105,13 +114,21 @@ export default function NewWorkout() {
 					return (
 						<div className={styles.exercise}>
 							<div className={styles.dragIcon} />
-							<input
-								ref={(element) => (repetitionRefs.current[index] == null ? repetitionRefs.current.push(element) : repetitionRefs.current[index])}
-								type="number"
-								value={exercise.repetition}
-								onChange={() => updateExerciseRepetition(index, repetitionRefs.current[index].value)}
-								className={styles.repetition}
-							/>
+							{exercise.repetition.map((serie, repetitionIndex) => {
+								return (
+									<input
+										ref={(element) => (repetitionRefs.current[element] === undefined ? (repetitionRefs.current[element] = exercise.repetition) : repetitionRefs.current[index])}
+										type="number"
+										value={serie}
+										onChange={(e) => updateExerciseRepetition(index, e.target.value, repetitionIndex)}
+										className={styles.repetition}
+									/>
+								)
+							})}
+
+							<div className={styles.addSerie} onClick={() => addSerieToExercise(index)}>
+								<div className={styles.addIcon}>+</div>
+							</div>
 							<input
 								ref={(element) => (nameRefs.current[index] == null ? nameRefs.current.push(element) : nameRefs.current[index])}
 								value={exercise.name}
