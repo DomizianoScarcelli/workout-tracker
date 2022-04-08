@@ -1,4 +1,5 @@
 .container {
+	position: relative;
 	cursor: pointer;
 	border-radius: 1rem;
 	gap: 0.5rem;
@@ -44,6 +45,17 @@
 	width: 1.5rem;
 	background-size: contain;
 	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.closeButton {
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	background-image: url(../../../../public/icons/circle-minus-solid.svg);
+	width: 20px;
+	height: 20px;
+	background-size: contain;
 	background-repeat: no-repeat;
 }
 
