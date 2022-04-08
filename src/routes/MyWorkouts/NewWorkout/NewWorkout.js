@@ -14,6 +14,10 @@ export default function NewWorkout() {
 		if (localStorage.getItem("exercises") !== null) setExercises(JSON.parse(localStorage.getItem("exercises")))
 	}, [])
 
+	const deleteSerie = () => {
+		//TODO: delete serie from the DB and localStorage
+	}
+
 	const updateExerciseName = (index, name) => {
 		exercises[index].name = name
 		localStorage.setItem("exercises", JSON.stringify([...exercises]))
@@ -111,14 +115,17 @@ export default function NewWorkout() {
 							<div className={styles.dragIcon} />
 							{exercise.repetition.map((serie, repetitionIndex) => {
 								return (
-									<input
-										ref={() => (repetitionRefs.current[index] === undefined ? (repetitionRefs.current[index] = exercise.repetition) : repetitionRefs.current[index])}
-										type="number"
-										placeholder="0"
-										value={serie}
-										onChange={(e) => updateExerciseRepetition(index, e.target.value, repetitionIndex)}
-										className={styles.repetition}
-									/>
+									<div className={styles.relativeContainer}>
+										<input
+											ref={() => (repetitionRefs.current[index] === undefined ? (repetitionRefs.current[index] = exercise.repetition) : repetitionRefs.current[index])}
+											type="number"
+											placeholder="0"
+											value={serie}
+											onChange={(e) => updateExerciseRepetition(index, e.target.value, repetitionIndex)}
+											className={styles.repetition}
+										/>
+										<div className={styles.closeButton} onClick={deleteSerie}></div>
+									</div>
 								)
 							})}
 

@@ -164,6 +164,21 @@ input {
 	background-repeat: no-repeat;
 }
 
+.relativeContainer {
+	position: relative;
+}
+
+.closeButton {
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	background-image: url(../../../../public/icons/circle-minus-solid.svg);
+	width: 15px;
+	height: 15px;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
 @media screen and (max-width: 850px) {
 	.addAndSaveContainer {
 		flex-direction: column;
