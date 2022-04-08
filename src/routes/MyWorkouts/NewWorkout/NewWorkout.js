@@ -27,14 +27,14 @@ export default function NewWorkout() {
 	}
 
 	const addExerciseToView = () => {
-		const newExercises = [...exercises, { name: "", repetition: [0] }]
+		const newExercises = [...exercises, { name: "", repetition: [""] }]
 		localStorage.setItem("exercises", JSON.stringify(newExercises))
 		setExercises(newExercises)
 	}
 
 	const addSerieToExercise = (index) => {
 		const newExercises = [...exercises]
-		newExercises[index].repetition.push(0)
+		newExercises[index].repetition.push("")
 		localStorage.setItem("exercises", JSON.stringify(newExercises))
 		setExercises(newExercises)
 	}
@@ -54,10 +54,9 @@ export default function NewWorkout() {
 		//Return errors if the fields are not properly completed
 	}
 
-	const saveWorkout = async () => {
+	const saveWorkout = async (name) => {
 		const username = "DovivoD"
 		const duration = durationRef.current.value
-		const name = "Workout test api"
 		const res = await axios.post(`http://localhost:8080/users/${username}/saved-workouts/add`, {
 			name: name,
 			exercises: exercises,
@@ -99,7 +98,7 @@ export default function NewWorkout() {
 			user: username,
 		})
 		if (save) {
-			await saveWorkout()
+			await saveWorkout("Workout test api")
 		}
 	}
 	return (
@@ -113,8 +112,9 @@ export default function NewWorkout() {
 							{exercise.repetition.map((serie, repetitionIndex) => {
 								return (
 									<input
-										ref={(element) => (repetitionRefs.current[index] === undefined ? (repetitionRefs.current[index] = exercise.repetition) : repetitionRefs.current[index])}
+										ref={() => (repetitionRefs.current[index] === undefined ? (repetitionRefs.current[index] = exercise.repetition) : repetitionRefs.current[index])}
 										type="number"
+										placeholder="0"
 										value={serie}
 										onChange={(e) => updateExerciseRepetition(index, e.target.value, repetitionIndex)}
 										className={styles.repetition}
