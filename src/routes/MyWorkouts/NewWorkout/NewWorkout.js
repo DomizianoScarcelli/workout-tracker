@@ -91,12 +91,13 @@ export default function NewWorkout() {
 		const username = "DovivoD"
 		const duration = durationRef.current.value
 		let postExercise = []
-		for (let index = 0; index < repetitionRefs.current.length; index++) {
+		for (let index = 0; index < Object.keys(repetitionRefs.current).length; index++) {
 			postExercise.push({
 				name: nameRefs.current[index].value,
-				repetition: repetitionRefs.current[index].value,
+				repetition: repetitionRefs.current[index],
 			})
 		}
+		console.log(postExercise)
 		await axios.post("http://localhost:8080/sessions/create", {
 			exercises: postExercise,
 			duration: duration,
