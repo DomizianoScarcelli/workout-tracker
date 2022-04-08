@@ -29,9 +29,8 @@ export default function FrequencyChart() {
 	}, [dayOfRef, period])
 
 	const chartHeight = (duration) => {
-		const max = Math.floor(maxWorkoutMinutes / 60)
 		return {
-			height: `${(duration / (60 * max)) * 100}%`,
+			height: `${(duration / maxWorkoutMinutes) * 100}%`,
 		}
 	}
 
