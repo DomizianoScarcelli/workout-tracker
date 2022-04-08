@@ -11,7 +11,7 @@ export default function FrequencyChart() {
 	const [stateDayOfRef, setStateDayOfRef] = dayOfRef
 	const [statePeriod, setStatePeriod] = period
 	const [workoutTimeArray, setWorkoutTimeArray] = useState([])
-	const [maxWorkoutMinutes, setMaxWorkoutMinutes] = useState(0)
+	const [maxWorkoutMinutes, setMaxWorkoutMinutes] = useState(100)
 
 	const getWorkoutMinutes = async () => {
 		const username = "DovivoD"
@@ -29,9 +29,7 @@ export default function FrequencyChart() {
 	}, [dayOfRef, period])
 
 	const chartHeight = (duration) => {
-		return {
-			height: `${(duration / maxWorkoutMinutes) * 100}%`,
-		}
+		return `${(duration / maxWorkoutMinutes) * 100}%`
 	}
 
 	const isSelected = (date) => {
@@ -50,14 +48,7 @@ export default function FrequencyChart() {
 					) : (
 						<div className={styles.infoContainer}>
 							<div className={styles.minutes}>{duration} min</div>
-							<motion.div
-								className={styles.chart}
-								animate={chartHeight(duration)}
-								initial={{
-									height: 0,
-								}}
-								transition={{ type: "spring", stiffness: 100 }}
-							></motion.div>
+							<motion.div className={styles.chart} animate={{ height: chartHeight(duration) }} transition={{ type: "spring", stiffness: 100 }}></motion.div>
 							<div className={styles.day + " " + (isSelected(date) ? styles.selected : "")}>{moment(date).format("ddd DD")}</div>
 						</div>
 					)
