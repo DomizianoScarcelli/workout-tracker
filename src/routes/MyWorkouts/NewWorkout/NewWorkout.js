@@ -117,7 +117,7 @@ export default function NewWorkout() {
 							{exercise.repetition.map((serie, repetitionIndex) => {
 								return (
 									<input
-										ref={(element) => (repetitionRefs.current[element] === undefined ? (repetitionRefs.current[element] = exercise.repetition) : repetitionRefs.current[index])}
+										ref={(element) => (repetitionRefs.current[index] === undefined ? (repetitionRefs.current[index] = exercise.repetition) : repetitionRefs.current[index])}
 										type="number"
 										value={serie}
 										onChange={(e) => updateExerciseRepetition(index, e.target.value, repetitionIndex)}
