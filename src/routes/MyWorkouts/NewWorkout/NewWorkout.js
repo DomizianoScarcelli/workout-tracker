@@ -11,7 +11,6 @@ export default function NewWorkout() {
 	const [save, setSave] = useState(localStorage.getItem("saved") === "true" ? true : false)
 
 	useEffect(() => {
-		console.log(repetitionRefs)
 		if (localStorage.getItem("exercises") !== null) setExercises(JSON.parse(localStorage.getItem("exercises")))
 	}, [])
 
@@ -22,7 +21,6 @@ export default function NewWorkout() {
 	}
 
 	const updateExerciseRepetition = (index, repetition, repetitionIndex) => {
-		console.log(repetitionRefs)
 		exercises[index].repetition[repetitionIndex] = repetition
 		localStorage.setItem("exercises", JSON.stringify([...exercises]))
 		setExercises([...exercises])
@@ -45,7 +43,6 @@ export default function NewWorkout() {
 		exercises.splice(index, 1)
 		const newExercises = [...exercises]
 		localStorage.setItem("exercises", JSON.stringify(newExercises))
-		console.log(JSON.stringify(newExercises))
 		setExercises(newExercises)
 	}
 
@@ -66,7 +63,6 @@ export default function NewWorkout() {
 			exercises: exercises,
 			duration: duration,
 		})
-		console.log(res.data)
 	}
 
 	const addNewSession = async () => {
@@ -97,7 +93,6 @@ export default function NewWorkout() {
 				repetition: repetitionRefs.current[index],
 			})
 		}
-		console.log(postExercise)
 		await axios.post("http://localhost:8080/sessions/create", {
 			exercises: postExercise,
 			duration: duration,

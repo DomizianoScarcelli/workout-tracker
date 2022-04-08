@@ -12,7 +12,6 @@ const CurrentPeriod = (props) => {
 	const formatCurrentPeriod = () => {
 		const startDate = moment(day).startOf(statePeriod)
 		const endDate = moment(day).endOf(statePeriod)
-		console.log(startDate, endDate)
 		return startDate.format("DD/MM/YYYY") + " - " + endDate.format("DD/MM/YYYY")
 	}
 

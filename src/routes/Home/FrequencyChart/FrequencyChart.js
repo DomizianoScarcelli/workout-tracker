@@ -30,7 +30,6 @@ export default function FrequencyChart() {
 
 	const chartHeight = (duration) => {
 		const max = Math.floor(maxWorkoutMinutes / 60)
-		console.log(max)
 		return {
 			height: `${(duration / (60 * max)) * 100}%`,
 		}
