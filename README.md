@@ -1,13 +1,13 @@
 ## Descrizione dell’applicazione
 
-Workout tracker è un’applicazione web il cui scopo è quello di permettere il tracciamento di esercizi, che questi siano effettuati a casa o in palestra.
+Workout tracker is a web application whose purpose is to allow exercise tracking, whether they're done in a gym or a home.
 
-L’utente può segnare che esercizi ha eseguito in che giorno, e può dettagliare questi esercizi comprendendoli di numero di ripetizioni e di durata. 
+The user can check the exercises that he has done on a certain day and can add details like the number of repetitions and the duration of the workout.
 
-L’utente può salvare dei workout predefiniti, in cui saranno presenti un insieme di esercizi, in modo tale da velocizzare l’inserimento di quest’ultimi nella fase di tracciamento.
+The user can also save a list of favorite workouts, where there will be a series of exercises, so he can add the same workout later without recreating it. 
 
-L’applicazione è in grado di mostrare delle statistiche relative agli esercizi che l’utente effettua, e tali statistiche possono essere raggruppate per periodo di tempo. I periodi di tempo possono inoltre essere comparati tra di loro.
+The app can show some analytics about the user's workout for a certain period that the user can choose. 
 
-### Architettura del sistema
+### System architecture
 
-L’applicazione è fondata sullo stack MERN (MongoDB, Express.js, React.js, Node.js).
+The application is based on the MERN stack. 
