@@ -1,4 +1,4 @@
-## Descrizione dell’applicazione
+## Application description 
 
 Workout tracker is a web application whose purpose is to allow exercise tracking, whether they're done in a gym or a home.
 
