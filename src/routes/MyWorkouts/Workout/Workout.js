@@ -14,10 +14,6 @@ export default function Workout(props) {
 		navigate("new-workout")
 	}
 
-	const deleteSavedWorkout = () => {
-		//TODO: Delete the current saved workout from the DB
-	}
-
 	return (
 		<motion.div
 			onClick={openWorkoutEditor}
@@ -38,7 +34,10 @@ export default function Workout(props) {
 						scale: 1.8,
 					}}
 					className={styles.closeButton}
-					onClick={deleteSavedWorkout}
+					onClick={(e) => {
+						e.stopPropagation()
+						props.removeWorkout()
+					}}
 				></motion.div>
 			)}
 			<div>
