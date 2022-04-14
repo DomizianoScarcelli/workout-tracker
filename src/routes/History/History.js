@@ -14,6 +14,14 @@ export default function History() {
 		setHistory(res.data)
 	}
 
+	const removeWorkoutFromHistory = async (workoutId) => {
+		const username = "DovivoD"
+		const res = await axios.delete(`http://localhost:8080/sessions/remove-history/${workoutId}?username=${username}`)
+		const startDate = "2021-03-30"
+		const endDate = "2022-04-20"
+		getHistory(startDate, endDate)
+	}
+
 	useEffect(() => {
 		const startDate = "2021-03-30"
 		const endDate = "2022-04-20"
@@ -29,7 +37,7 @@ export default function History() {
 					<div className={styles.headerTitle}>History</div>
 				</div>
 				{history.map((workout) => (
-					<Workout exercises={workout.exercises} name={""} id={workout["_id"]} duration={workout.duration} />
+					<Workout exercises={workout.exercises} name={""} id={workout["_id"]} duration={workout.duration} removeWorkout={() => removeWorkoutFromHistory(workout["_id"])} />
 				))}
 			</div>
 		</div>
