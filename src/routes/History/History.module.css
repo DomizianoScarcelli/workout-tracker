@@ -1,0 +1,50 @@
+.container {
+	margin-top: 5rem;
+	display: flex;
+	flex-direction: row;
+}
+
+.innerContainer {
+	min-width: 350px;
+	background-color: white;
+	margin-right: 10rem;
+	margin-left: 10rem;
+	width: 90vw;
+	height: fit-content;
+	padding-bottom: 2rem;
+	border-radius: 3rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 0.75rem;
+}
+
+.headerIcon {
+	background-image: url(../../../public/icons/my-workouts-icons/my-workouts-purple.svg);
+	height: 2.5rem;
+	width: 2.5rem;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.headerTitle {
+	font-size: 25px;
+	color: var(--dark-grey);
+	font-weight: bold;
+}
+
+@media (max-width: 700px) {
+	.innerContainer {
+		width: 100%;
+		margin-left: 2rem;
+		margin-right: 2rem;
+	}
+}

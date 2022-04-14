@@ -55,7 +55,14 @@ export default function MyWorkouts() {
 								<div className={styles.newWorkoutTitle}>Create new workout</div>
 							</motion.div>
 							{workouts.map((workout) => (
-								<Workout exercises={workout.exercises} name={workout.name} id={workout["_id"]} duration={workout.duration} removeWorkout={() => deleteSavedWorkout(workout["_id"])} />
+								<Workout
+									arrow={true}
+									exercises={workout.exercises}
+									name={workout.name}
+									id={workout["_id"]}
+									duration={workout.duration}
+									removeWorkout={() => deleteSavedWorkout(workout["_id"])}
+								/>
 							))}
 						</motion.div>
 					}

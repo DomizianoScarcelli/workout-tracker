@@ -51,7 +51,7 @@ export default function Workout(props) {
 			<div className={styles.center}></div>
 			<div className={styles.right}>
 				<div className={styles.duration}>{`${props.duration} min`}</div>
-				<div className={styles.arrow}></div>
+				{props.arrow && <div className={styles.arrow}></div>}
 			</div>
 		</motion.div>
 	)
