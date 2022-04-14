@@ -6,7 +6,7 @@ import { useRef, useState, useEffect } from "react"
 export default function NewWorkout() {
 	const durationRef = useRef(null)
 	const nameRefs = useRef([])
-	const repetitionRefs = useRef([])
+	const repetitionRefs = useRef({})
 	const [exercises, setExercises] = useState(localStorage.getItem("exercises") ? JSON.parse(localStorage.getItem("exercises")) : [])
 	const [save, setSave] = useState(localStorage.getItem("saved") === "true" ? true : false)
 
@@ -14,20 +14,31 @@ export default function NewWorkout() {
 		if (localStorage.getItem("exercises") !== null) setExercises(JSON.parse(localStorage.getItem("exercises")))
 	}, [])
 
+	const deleteSerie = () => {
+		//TODO: delete serie from the DB and localStorage
+	}
+
 	const updateExerciseName = (index, name) => {
 		exercises[index].name = name
 		localStorage.setItem("exercises", JSON.stringify([...exercises]))
 		setExercises([...exercises])
 	}
 
-	const updateExerciseRepetition = (index, repetition) => {
-		exercises[index].repetition = repetition
+	const updateExerciseRepetition = (index, repetition, repetitionIndex) => {
+		exercises[index].repetition[repetitionIndex] = repetition
 		localStorage.setItem("exercises", JSON.stringify([...exercises]))
 		setExercises([...exercises])
 	}
 
 	const addExerciseToView = () => {
-		const newExercises = [...exercises, { name: "", repetition: 0 }]
+		const newExercises = [...exercises, { name: "", repetition: [""] }]
+		localStorage.setItem("exercises", JSON.stringify(newExercises))
+		setExercises(newExercises)
+	}
+
+	const addSerieToExercise = (index) => {
+		const newExercises = [...exercises]
+		newExercises[index].repetition.push("")
 		localStorage.setItem("exercises", JSON.stringify(newExercises))
 		setExercises(newExercises)
 	}
@@ -36,7 +47,6 @@ export default function NewWorkout() {
 		exercises.splice(index, 1)
 		const newExercises = [...exercises]
 		localStorage.setItem("exercises", JSON.stringify(newExercises))
-		console.log(JSON.stringify(newExercises))
 		setExercises(newExercises)
 	}
 
@@ -48,16 +58,14 @@ export default function NewWorkout() {
 		//Return errors if the fields are not properly completed
 	}
 
-	const saveWorkout = async () => {
+	const saveWorkout = async (name) => {
 		const username = "DovivoD"
 		const duration = durationRef.current.value
-		const name = "Workout test api"
 		const res = await axios.post(`http://localhost:8080/users/${username}/saved-workouts/add`, {
 			name: name,
 			exercises: exercises,
 			duration: duration,
 		})
-		console.log(res.data)
 	}
 
 	const addNewSession = async () => {
@@ -82,10 +90,10 @@ export default function NewWorkout() {
 		const username = "DovivoD"
 		const duration = durationRef.current.value
 		let postExercise = []
-		for (let index = 0; index < repetitionRefs.current.length; index++) {
+		for (let index = 0; index < Object.keys(repetitionRefs.current).length; index++) {
 			postExercise.push({
 				name: nameRefs.current[index].value,
-				repetition: repetitionRefs.current[index].value,
+				repetition: repetitionRefs.current[index],
 			})
 		}
 		await axios.post("http://localhost:8080/sessions/create", {
@@ -94,7 +102,7 @@ export default function NewWorkout() {
 			user: username,
 		})
 		if (save) {
-			await saveWorkout()
+			await saveWorkout("Workout test api")
 		}
 	}
 	return (
@@ -105,13 +113,25 @@ export default function NewWorkout() {
 					return (
 						<div className={styles.exercise}>
 							<div className={styles.dragIcon} />
-							<input
-								ref={(element) => (repetitionRefs.current[index] == null ? repetitionRefs.current.push(element) : repetitionRefs.current[index])}
-								type="number"
-								value={exercise.repetition}
-								onChange={() => updateExerciseRepetition(index, repetitionRefs.current[index].value)}
-								className={styles.repetition}
-							/>
+							{exercise.repetition.map((serie, repetitionIndex) => {
+								return (
+									<div className={styles.relativeContainer}>
+										<input
+											ref={() => (repetitionRefs.current[index] === undefined ? (repetitionRefs.current[index] = exercise.repetition) : repetitionRefs.current[index])}
+											type="number"
+											placeholder="0"
+											value={serie}
+											onChange={(e) => updateExerciseRepetition(index, e.target.value, repetitionIndex)}
+											className={styles.repetition}
+										/>
+										<div className={styles.closeButton} onClick={deleteSerie}></div>
+									</div>
+								)
+							})}
+
+							<div className={styles.addSerie} onClick={() => addSerieToExercise(index)}>
+								<div className={styles.addIcon}>+</div>
+							</div>
 							<input
 								ref={(element) => (nameRefs.current[index] == null ? nameRefs.current.push(element) : nameRefs.current[index])}
 								value={exercise.name}

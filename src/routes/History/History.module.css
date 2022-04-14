@@ -41,33 +41,12 @@
 	font-weight: bold;
 }
 
-.newWorkout {
-	min-width: 230px;
-	cursor: pointer;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	border-radius: 1rem;
-	gap: 0.5rem;
-	width: 50%;
-	height: 6rem;
-	background-color: var(--purple);
-}
-
-.newWorkoutIcon {
-	background-image: url(../../../public/icons/my-workouts-icons/add-new-workout-icon.svg);
-	height: 2.5rem;
-	width: 2.5rem;
-	background-size: contain;
-	background-position: center;
-	background-repeat: no-repeat;
-}
-
-.newWorkoutTitle {
-	color: white;
-	font-size: 18px;
+.date {
 	font-weight: bold;
+	font-size: 20px;
+	display: flex;
+	width: 30rem;
+	align-items: flex-start;
 }
 
 @media (max-width: 700px) {
@@ -75,9 +54,5 @@
 		width: 100%;
 		margin-left: 2rem;
 		margin-right: 2rem;
-	}
-	.newWorkout {
-		padding: 0 1rem;
-		width: 70%;
 	}
 }

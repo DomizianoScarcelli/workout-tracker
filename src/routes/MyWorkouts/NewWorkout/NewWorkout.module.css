@@ -34,6 +34,18 @@
 	align-items: center;
 }
 
+.addSerie {
+	padding: 2px 10px;
+	width: 2rem;
+	border-radius: 5px;
+	min-width: fit-content;
+	cursor: pointer;
+	border: dashed #0000003b 1px;
+	height: 2rem;
+	place-items: center;
+	display: grid;
+}
+
 .addExercise {
 	min-width: 10rem;
 	cursor: pointer;
@@ -148,6 +160,21 @@ input {
 	background-image: url(../../../../public/icons/my-workouts-icons/trash.svg);
 	width: 1.5rem;
 	height: 1.5rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.relativeContainer {
+	position: relative;
+}
+
+.closeButton {
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	background-image: url(../../../../public/icons/circle-minus-solid.svg);
+	width: 15px;
+	height: 15px;
 	background-size: contain;
 	background-repeat: no-repeat;
 }

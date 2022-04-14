@@ -53,6 +53,9 @@
 		margin-left: 0;
 		background-color: var(--light);
 	}
+	.selectedElement {
+		padding: 0.25rem 1rem;
+	}
 	.container {
 		align-items: center;
 		flex-direction: column;

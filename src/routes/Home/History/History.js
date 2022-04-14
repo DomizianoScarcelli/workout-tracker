@@ -12,7 +12,9 @@ export default function History() {
 
 	const getMonthlyWorkouts = async () => {
 		const username = "DovivoD"
-		const res = await axios.get(`http://localhost:8080/sessions/${username}/monthly-workouts`)
+		const startDate = moment().startOf("month")
+		const endDate = moment().endOf("month")
+		const res = await axios.get(`http://localhost:8080/sessions/${username}/workouts?startDate=${startDate}&endDate=${endDate}`)
 		setWorkouts(res.data)
 	}
 

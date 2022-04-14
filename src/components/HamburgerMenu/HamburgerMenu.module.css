@@ -1,5 +1,6 @@
 /* Hamburger animation source: https://codepen.io/RRoberts/pen/ZBYaJr */
 .hamburger {
+	visibility: hidden;
 	cursor: pointer;
 	z-index: 1;
 	position: absolute;
@@ -37,7 +38,7 @@
 }
 
 /* End of animation */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 700px) {
 	.hamburger {
 		visibility: visible;
 	}

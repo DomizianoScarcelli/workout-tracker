@@ -14,6 +14,12 @@ export default function MyWorkouts() {
 	const query = useQuery()
 	const [workouts, setWorkouts] = useState([])
 
+	const deleteSavedWorkout = async (workoutId) => {
+		const username = "DovivoD"
+		const res = await axios.delete(`http://localhost:8080/users/delete/${workoutId}?username=${username}`)
+		getUserSavedWorkouts()
+	}
+
 	const getUserSavedWorkouts = async () => {
 		const username = "DovivoD"
 		const res = await axios.get(`http://localhost:8080/users/info/${username}`)
@@ -49,7 +55,14 @@ export default function MyWorkouts() {
 								<div className={styles.newWorkoutTitle}>Create new workout</div>
 							</motion.div>
 							{workouts.map((workout) => (
-								<Workout exercises={workout.exercises} name={workout.name} duration={workout.duration} />
+								<Workout
+									arrow={true}
+									exercises={workout.exercises}
+									name={workout.name}
+									id={workout["_id"]}
+									duration={workout.duration}
+									removeWorkout={() => deleteSavedWorkout(workout["_id"])}
+								/>
 							))}
 						</motion.div>
 					}
