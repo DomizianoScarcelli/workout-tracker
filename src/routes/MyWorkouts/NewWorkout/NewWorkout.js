@@ -2,6 +2,9 @@ import React from "react"
 import styles from "./NewWorkout.module.css"
 import axios from "axios"
 import { useRef, useState, useEffect } from "react"
+import "react-modern-calendar-datepicker/lib/DatePicker.css"
+import DatePicker from "react-modern-calendar-datepicker"
+import moment from "moment"
 
 export default function NewWorkout() {
 	const durationRef = useRef(null)
@@ -9,6 +12,7 @@ export default function NewWorkout() {
 	const repetitionRefs = useRef({})
 	const [exercises, setExercises] = useState(localStorage.getItem("exercises") ? JSON.parse(localStorage.getItem("exercises")) : [])
 	const [save, setSave] = useState(localStorage.getItem("saved") === "true" ? true : false)
+	const [selectedDay, setSelectedDay] = useState(null)
 
 	useEffect(() => {
 		if (localStorage.getItem("exercises") !== null) setExercises(JSON.parse(localStorage.getItem("exercises")))
@@ -109,9 +113,16 @@ export default function NewWorkout() {
 		<div className={styles.container}>
 			<div className={styles.header}>
 				<div className={styles.title}>Monday Workout</div>
-				<div className={styles.datePicker}>
-					10/02/2022 <div className={styles.editIcon}></div>
-				</div>
+				<DatePicker
+					value={selectedDay}
+					onChange={setSelectedDay}
+					renderInput={({ ref }) => (
+						<div ref={ref} className={styles.datePickerContainer}>
+							<input readOnly className={styles.datePicker} value={moment(selectedDay).format("DD/MM/YYYY")} />
+							<div className={styles.editIcon}></div>
+						</div>
+					)}
+				/>
 			</div>
 			<div className={styles.exercises}>
 				{exercises.map((exercise, index) => {
@@ -127,7 +138,7 @@ export default function NewWorkout() {
 											placeholder="0"
 											value={serie}
 											onChange={(e) => updateExerciseRepetition(index, e.target.value, repetitionIndex)}
-											className={styles.repetition}
+											className={`${styles.repetition} ${styles.inputForm}`}
 										/>
 										<div className={styles.closeButton} onClick={deleteSerie}></div>
 									</div>
@@ -145,7 +156,7 @@ export default function NewWorkout() {
 								}}
 								type="text"
 								placeholder="Push up"
-								className={styles.nameEdit}
+								className={`${styles.nameEdit} ${styles.inputForm}`}
 							/>
 
 							<div className={styles.removeButton} onClick={() => removeWorkout(index)}></div>

@@ -15,23 +15,29 @@
 
 .header {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	width: 90%;
 }
 
-.datePicker {
+.datePickerContainer {
 	cursor: pointer;
-	position: absolute;
-	right: 2rem;
 	background-color: var(--purple);
-	padding: 0.5rem;
+	padding: 0.35rem;
 	border-radius: 0.75rem;
-	color: white;
 	font-weight: bold;
 	display: flex;
 	gap: 10px;
 	align-items: center;
+}
+
+.datePicker {
+	font-weight: bold;
+	font-size: 16px;
+	background-color: var(--purple);
+	color: white;
+	border: none;
+	width: 5rem;
 }
 
 .editIcon {
@@ -98,7 +104,7 @@
 	width: 8rem;
 }
 
-input {
+.inputForm {
 	font-size: 22px;
 	font-weight: bold;
 	color: var(--dark-grey);
