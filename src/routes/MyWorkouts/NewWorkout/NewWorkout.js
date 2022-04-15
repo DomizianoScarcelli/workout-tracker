@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from "react"
 import "react-modern-calendar-datepicker/lib/DatePicker.css"
 import DatePicker from "react-modern-calendar-datepicker"
 import moment from "moment"
+import { motion } from "framer-motion"
 
 export default function NewWorkout() {
 	const durationRef = useRef(null)
@@ -18,8 +19,11 @@ export default function NewWorkout() {
 		if (localStorage.getItem("exercises") !== null) setExercises(JSON.parse(localStorage.getItem("exercises")))
 	}, [])
 
-	const deleteSerie = () => {
-		//TODO: delete serie from the DB and localStorage
+	const deleteSerie = (workoutIndex, repetitionIndex) => {
+		const newExercises = [...exercises]
+		newExercises[workoutIndex].repetition.splice(repetitionIndex, 1)
+		localStorage.setItem("exercises", JSON.stringify(newExercises))
+		setExercises(newExercises)
 	}
 
 	const updateExerciseName = (index, name) => {
@@ -104,6 +108,7 @@ export default function NewWorkout() {
 			exercises: postExercise,
 			duration: duration,
 			user: username,
+			date: moment(selectedDay).subtract(1, "month").toDate(),
 		})
 		if (save) {
 			await saveWorkout("Workout test api")
@@ -118,7 +123,11 @@ export default function NewWorkout() {
 					onChange={setSelectedDay}
 					renderInput={({ ref }) => (
 						<div ref={ref} className={styles.datePickerContainer}>
-							<input readOnly className={styles.datePicker} value={moment(selectedDay).format("DD/MM/YYYY")} />
+							<input
+								readOnly
+								className={styles.datePicker}
+								value={selectedDay === null ? moment().format("DD/MM/YYYY") : moment(selectedDay).subtract(1, "month").format("DD/MM/YYYY")}
+							/>
 							<div className={styles.editIcon}></div>
 						</div>
 					)}
@@ -140,7 +149,16 @@ export default function NewWorkout() {
 											onChange={(e) => updateExerciseRepetition(index, e.target.value, repetitionIndex)}
 											className={`${styles.repetition} ${styles.inputForm}`}
 										/>
-										<div className={styles.closeButton} onClick={deleteSerie}></div>
+										<motion.div
+											whileHover={{
+												scale: 1.8,
+											}}
+											className={styles.closeButton}
+											onClick={(event) => {
+												event.stopPropagation()
+												deleteSerie(index, repetitionIndex)
+											}}
+										></motion.div>
 									</div>
 								)
 							})}
@@ -170,7 +188,7 @@ export default function NewWorkout() {
 
 			<div className={styles.bottom}>
 				<div className={styles.exercise}>
-					<input type="number" placeholder="20" ref={durationRef} className={styles.repetition} />
+					<input type="number" placeholder="20" ref={durationRef} className={`${styles.repetition} ${styles.inputForm}`} />
 
 					<div className={styles.name}>Minutes</div>
 				</div>

@@ -32,7 +32,7 @@ export default function History() {
 
 	useEffect(() => {
 		const startDate = "2021-03-30"
-		const endDate = "2022-04-20"
+		const endDate = "2022-05-20"
 		getHistory(startDate, endDate)
 	}, [])
 
