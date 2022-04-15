@@ -108,7 +108,7 @@ export default function NewWorkout() {
 			exercises: postExercise,
 			duration: duration,
 			user: username,
-			date: moment(selectedDay).subtract(1, "month").toDate(),
+			date: selectedDay === null ? moment().toDate() : moment(selectedDay).subtract(1, "month").toDate(),
 		})
 		if (save) {
 			await saveWorkout("Workout test api")

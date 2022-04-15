@@ -42,11 +42,10 @@
 }
 
 .date {
+	align-self: flex-start;
+	margin-left: calc(25%);
 	font-weight: bold;
 	font-size: 20px;
-	display: flex;
-	width: 30rem;
-	align-items: flex-start;
 }
 
 @media (max-width: 700px) {

@@ -18,7 +18,7 @@ export default function History() {
 			const date = moment(workout.date).format("MMMM DD YYYY")
 			if (!tempWorkoutDays.includes(date)) tempWorkoutDays.push(date)
 		}
-		setWorkoutDays(tempWorkoutDays)
+		setWorkoutDays(tempWorkoutDays.reverse())
 		setHistory(res.data)
 	}
 
@@ -26,7 +26,7 @@ export default function History() {
 		const username = "DovivoD"
 		const res = await axios.delete(`http://localhost:8080/sessions/remove-history/${workoutId}?username=${username}`)
 		const startDate = "2021-03-30"
-		const endDate = "2022-04-20"
+		const endDate = "2022-05-20"
 		getHistory(startDate, endDate)
 	}
 
@@ -51,13 +51,15 @@ export default function History() {
 							{history.map(
 								(workout) =>
 									moment(workout.date).isSame(moment(day), "day") && (
-										<Workout
-											exercises={workout.exercises}
-											name={""}
-											id={workout["_id"]}
-											duration={workout.duration}
-											removeWorkout={() => removeWorkoutFromHistory(workout["_id"])}
-										/>
+										<>
+											<Workout
+												exercises={workout.exercises}
+												name={""}
+												id={workout["_id"]}
+												duration={workout.duration}
+												removeWorkout={() => removeWorkoutFromHistory(workout["_id"])}
+											/>
+										</>
 									)
 							)}
 						</>
