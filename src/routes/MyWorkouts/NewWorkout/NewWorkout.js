@@ -107,7 +107,12 @@ export default function NewWorkout() {
 	}
 	return (
 		<div className={styles.container}>
-			<div className={styles.title}>Monday Workout</div>
+			<div className={styles.header}>
+				<div className={styles.title}>Monday Workout</div>
+				<div className={styles.datePicker}>
+					10/02/2022 <div className={styles.editIcon}></div>
+				</div>
+			</div>
 			<div className={styles.exercises}>
 				{exercises.map((exercise, index) => {
 					return (
