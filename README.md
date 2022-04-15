@@ -8,8 +8,8 @@ The user can also save a list of favorite workouts, where there will be a series
 
 The app can show some analytics about the user's workout for a certain period that the user can choose. 
 
-##UI
-###Home
+## UI
+### Home
 <p float="left">
   <img src="https://github.com/DomizianoScarcelli/workout-tracker/blob/master/GitHub%20Resources/UI%20Images/Home.png?raw=true" width="600" />
   <img src="https://github.com/DomizianoScarcelli/workout-tracker/blob/master/GitHub%20Resources/UI%20Images/Home%20Mobile.png?raw=true" width="206" /> 
@@ -17,7 +17,7 @@ The app can show some analytics about the user's workout for a certain period th
 
 On the Home page, the user sees some basic analytics about his workouts.
 
-###My Workouts
+### My Workouts
 <p float="left">
   <img src="https://github.com/DomizianoScarcelli/workout-tracker/blob/master/GitHub%20Resources/UI%20Images/MyWorkouts.png?raw=true" width="600" />
   <img src="https://github.com/DomizianoScarcelli/workout-tracker/blob/master/GitHub%20Resources/UI%20Images/MyWorkouts%20Mobile.png?raw=true" width="206" /> 
@@ -25,7 +25,7 @@ On the Home page, the user sees some basic analytics about his workouts.
 
 On the "My Workouts" page, the user can see the workouts that he's saved. He can quickly add a new workout, or he can check a previously saved workout as done for the day.
 
-###History
+### History
 <p float="left">
   <img src="https://github.com/DomizianoScarcelli/workout-tracker/blob/master/GitHub%20Resources/UI%20Images/History.png?raw=true" width="600" />
   <img src="https://github.com/DomizianoScarcelli/workout-tracker/blob/master/GitHub%20Resources/UI%20Images/History%20Mobile.png?raw=true" width="206" /> 
