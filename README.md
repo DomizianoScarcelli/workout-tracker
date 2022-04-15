@@ -35,4 +35,4 @@ On the History page, the user can see the workouts he previously completed, he c
 
 ### System architecture
 
-The application is based on the MERN stack. For the backend code, check out the (Workout Tracker Backend)[https://github.com/DomizianoScarcelli/workout-tracker-backend] repository.
+The application is based on the MERN stack. For the backend code, check out the [Workout Tracker Backend](https://github.com/DomizianoScarcelli/workout-tracker-backend) repository.
