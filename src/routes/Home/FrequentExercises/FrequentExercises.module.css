@@ -38,3 +38,9 @@
 	bottom: 10px;
 	position: absolute;
 }
+
+.noExercisesContainer {
+	display: grid;
+	place-items: center;
+	text-align: center;
+}

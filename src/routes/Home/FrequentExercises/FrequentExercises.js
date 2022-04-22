@@ -22,31 +22,48 @@ export default function FrequentExercises() {
 		setLoaded(true)
 	}
 
+	const parseNoExercisesPeriodString = (period) => {
+		console.log(period)
+		if (period === "isoWeek") return "week"
+		return period
+	}
+
 	useEffect(() => {
 		getUserMostFrequentExercises()
 	}, [dayOfRef, period])
 
 	return (
 		<>
-			<motion.div initial={{ height: 0 }} animate={isLoaded ? { height: "fit-content" } : {}} transition={{ type: "spring", stiffness: 100 }} className={styles.container}>
+			<motion.div
+				initial={{ height: "250px" }}
+				animate={isLoaded && exercises.length !== 0 ? { height: "fit-content" } : {}}
+				transition={{ type: "spring", stiffness: 100 }}
+				className={styles.container}
+			>
 				<div className={styles.label}>Frequent Exercises</div>
-				{exercises.map(
-					({ name, repetition }) =>
-						repetition !== 0 && (
-							<motion.div
-								initial={{
-									width: 0,
-								}}
-								animate={{
-									width: "95%",
-								}}
-								transition={{ type: "spring", stiffness: 100 }}
-								className={styles.exerciseContainer}
-							>
-								<div className={styles.text}>{name}</div>
-								<div className={styles.number}>{repetition}</div>
-							</motion.div>
-						)
+				{exercises.length === 0 ? (
+					<div className={styles.noExercisesContainer}>
+						<div className={styles.text}>You didn't exercise this {parseNoExercisesPeriodString(statePeriod)}</div>
+					</div>
+				) : (
+					exercises.map(
+						({ name, repetition }) =>
+							repetition !== 0 && (
+								<motion.div
+									initial={{
+										width: 0,
+									}}
+									animate={{
+										width: "95%",
+									}}
+									transition={{ type: "spring", stiffness: 100 }}
+									className={styles.exerciseContainer}
+								>
+									<div className={styles.text}>{name}</div>
+									<div className={styles.number}>{repetition}</div>
+								</motion.div>
+							)
+					)
 				)}
 			</motion.div>
 		</>
