@@ -11,51 +11,65 @@ export default function NewWorkout() {
 	const durationRef = useRef(null)
 	const nameRefs = useRef([])
 	const repetitionRefs = useRef({})
-	const [exercises, setExercises] = useState(localStorage.getItem("exercises") ? JSON.parse(localStorage.getItem("exercises")) : [])
-	const [save, setSave] = useState(localStorage.getItem("saved") === "true" ? true : false)
+	const [exercises, setExercises] = useState(localStorage.getItem("workoutInfo") ? JSON.parse(localStorage.getItem("workoutInfo")).exercises : [])
+	const [save, setSave] = useState(localStorage.getItem("workoutInfo") ? JSON.parse(localStorage.getItem("workoutInfo")).save : false)
 	const [selectedDay, setSelectedDay] = useState(null)
+	const [duration, setDuration] = useState(localStorage.getItem("workoutInfo") ? JSON.parse(localStorage.getItem("workoutInfo")).minutes : "")
 
 	useEffect(() => {
-		if (localStorage.getItem("exercises") !== null) setExercises(JSON.parse(localStorage.getItem("exercises")))
+		if (localStorage.getItem("workoutInfo") !== null) setExercises(getInfoFromLocalStorage().exercises)
 	}, [])
 
 	const deleteSerie = (workoutIndex, repetitionIndex) => {
 		const newExercises = [...exercises]
 		newExercises[workoutIndex].repetition.splice(repetitionIndex, 1)
-		localStorage.setItem("exercises", JSON.stringify(newExercises))
-		setExercises(newExercises)
+		updateLocalStorage(exercises, durationRef.current.value, save)
+	}
+
+	const getInfoFromLocalStorage = () => {
+		return JSON.parse(localStorage.getItem("workoutInfo"))
+	}
+
+	const updateLocalStorage = (exercises, minutes, save) => {
+		localStorage.setItem(
+			"workoutInfo",
+			JSON.stringify({
+				exercises: exercises,
+				minutes: minutes,
+				save: save,
+			})
+		)
+		setExercises(exercises)
+		setDuration(minutes)
+		setSave(save)
 	}
 
 	const updateExerciseName = (index, name) => {
+		console.log(durationRef.current.value)
 		exercises[index].name = name
-		localStorage.setItem("exercises", JSON.stringify([...exercises]))
-		setExercises([...exercises])
+		updateLocalStorage([...exercises], durationRef.current.value, save)
 	}
 
 	const updateExerciseRepetition = (index, repetition, repetitionIndex) => {
 		exercises[index].repetition[repetitionIndex] = repetition
-		localStorage.setItem("exercises", JSON.stringify([...exercises]))
-		setExercises([...exercises])
+		updateLocalStorage([...exercises], durationRef.current.value, save)
 	}
 
 	const addExerciseToView = () => {
 		const newExercises = [...exercises, { name: "", repetition: [""] }]
-		localStorage.setItem("exercises", JSON.stringify(newExercises))
-		setExercises(newExercises)
+		updateLocalStorage(newExercises, durationRef.current.value, save)
 	}
 
 	const addSerieToExercise = (index) => {
 		const newExercises = [...exercises]
 		newExercises[index].repetition.push("")
-		localStorage.setItem("exercises", JSON.stringify(newExercises))
-		setExercises(newExercises)
+		updateLocalStorage(newExercises, durationRef.current.value, save)
 	}
 
 	const removeWorkout = (index) => {
 		exercises.splice(index, 1)
 		const newExercises = [...exercises]
-		localStorage.setItem("exercises", JSON.stringify(newExercises))
-		setExercises(newExercises)
+		updateLocalStorage(newExercises, durationRef.current.value, save)
 	}
 
 	const validateData = () => {
@@ -188,7 +202,16 @@ export default function NewWorkout() {
 
 			<div className={styles.bottom}>
 				<div className={styles.exercise}>
-					<input type="number" placeholder="20" ref={durationRef} className={`${styles.repetition} ${styles.inputForm}`} />
+					<input
+						type="number"
+						placeholder="20"
+						ref={durationRef}
+						className={`${styles.repetition} ${styles.inputForm}`}
+						onChange={() => {
+							updateLocalStorage(exercises, durationRef.current.value, save)
+						}}
+						value={duration}
+					/>
 
 					<div className={styles.name}>Minutes</div>
 				</div>
@@ -198,8 +221,8 @@ export default function NewWorkout() {
 					<div
 						className={styles.saveButton + " " + (save ? styles.checked : "")}
 						onClick={() => {
-							localStorage.setItem("saved", !save)
 							setSave(!save)
+							updateLocalStorage(exercises, duration, !save)
 						}}
 					></div>
 				</div>
