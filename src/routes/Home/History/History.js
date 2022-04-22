@@ -3,12 +3,14 @@ import styles from "./History.module.css"
 import moment from "moment"
 import { getDaysOfThisMonth } from "../../../utils/DateUtils"
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
 export default function History() {
 	const days = getDaysOfThisMonth()
 	let insertedChart = 0
 	const [workouts, setWorkouts] = useState([])
+	const navigate = useNavigate()
 
 	const getMonthlyWorkouts = async () => {
 		const username = "DovivoD"
@@ -45,7 +47,14 @@ export default function History() {
 	return (
 		<>
 			<div className={styles.container}>
-				<div className={styles.label}>History</div>
+				<div
+					className={styles.label}
+					onClick={() => {
+						navigate("/history")
+					}}
+				>
+					History <span className={styles.angleRightIcon}></span>
+				</div>
 				<div className={styles.week}>
 					{["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => {
 						return <div className={styles.weekDay}>{day}</div>
