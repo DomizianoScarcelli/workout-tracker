@@ -1,22 +1,14 @@
 import React from "react"
 import styles from "./Workout.module.css"
 import { motion } from "framer-motion"
-import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 
 export default function Workout(props) {
-	const navigate = useNavigate()
-
 	const [hovering, setHovering] = useState(false)
-
-	const openWorkoutEditor = () => {
-		localStorage.setItem("exercises", JSON.stringify(props.exercises))
-		navigate("new-workout")
-	}
 
 	return (
 		<motion.div
-			onClick={openWorkoutEditor}
+			onClick={props.onClick}
 			whileHover={{
 				scale: 1.1,
 			}}

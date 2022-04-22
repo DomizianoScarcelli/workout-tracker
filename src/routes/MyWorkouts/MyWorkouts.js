@@ -26,6 +26,18 @@ export default function MyWorkouts() {
 		setWorkouts(res.data[0].savedWorkouts)
 	}
 
+	const openWorkoutEditor = (workout) => {
+		localStorage.setItem(
+			"workoutInfo",
+			JSON.stringify({
+				exercises: workout.exercises,
+				minutes: workout.duration,
+				save: false,
+			})
+		)
+		navigate("new-workout")
+	}
+
 	useEffect(() => {
 		getUserSavedWorkouts()
 	}, [])
@@ -56,6 +68,7 @@ export default function MyWorkouts() {
 							</motion.div>
 							{workouts.map((workout) => (
 								<Workout
+									onClick={() => openWorkoutEditor(workout)}
 									arrow={true}
 									exercises={workout.exercises}
 									name={workout.name}
