@@ -26,7 +26,7 @@ export default function FrequencyChart() {
 
 	const renderPeriodString = (date, period) => {
 		if (date instanceof Array) {
-			if (period === "month") return `${moment(date[0]).format("ddd DD")} - \n ${moment(date[1]).format("ddd DD")}`
+			if (period === "month") return `${moment(date[0]).format("DD MMM")} - \n ${moment(date[1]).format("DD MMM")}`
 			if (period === "year") return moment(date[0]).format("MMM")
 		}
 		return moment(date).format("ddd DD")
