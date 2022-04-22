@@ -15,6 +15,8 @@ export default function NewWorkout() {
 	const [save, setSave] = useState(localStorage.getItem("workoutInfo") ? JSON.parse(localStorage.getItem("workoutInfo")).save : false)
 	const [selectedDay, setSelectedDay] = useState(null)
 	const [duration, setDuration] = useState(localStorage.getItem("workoutInfo") ? JSON.parse(localStorage.getItem("workoutInfo")).minutes : "")
+	const workoutNameRef = useRef(null)
+	const [workoutName, setWorkoutName] = useState(localStorage.getItem("workoutInfo") ? JSON.parse(localStorage.getItem("workoutInfo")).workoutName : "")
 
 	useEffect(() => {
 		if (localStorage.getItem("workoutInfo") !== null) setExercises(getInfoFromLocalStorage().exercises)
@@ -34,6 +36,7 @@ export default function NewWorkout() {
 		localStorage.setItem(
 			"workoutInfo",
 			JSON.stringify({
+				workoutName: workoutName,
 				exercises: exercises,
 				minutes: minutes,
 				save: save,
@@ -72,6 +75,19 @@ export default function NewWorkout() {
 		updateLocalStorage(newExercises, durationRef.current.value, save)
 	}
 
+	const updateWorkoutName = (name) => {
+		localStorage.setItem(
+			"workoutInfo",
+			JSON.stringify({
+				workoutName: name,
+				exercises: exercises,
+				minutes: duration,
+				save: save,
+			})
+		)
+		setWorkoutName(name)
+	}
+
 	const validateData = () => {
 		//Validate exercises
 		if (exercises === [] || exercises === "") throw new Error("Empty exercises")
@@ -80,11 +96,11 @@ export default function NewWorkout() {
 		//Return errors if the fields are not properly completed
 	}
 
-	const saveWorkout = async (name) => {
+	const saveWorkout = async () => {
 		const username = "DovivoD"
 		const duration = durationRef.current.value
 		const res = await axios.post(`http://localhost:8080/users/${username}/saved-workouts/add`, {
-			name: name,
+			name: workoutName,
 			exercises: exercises,
 			duration: duration,
 		})
@@ -125,13 +141,20 @@ export default function NewWorkout() {
 			date: selectedDay === null ? moment().toDate() : moment(selectedDay).subtract(1, "month").toDate(),
 		})
 		if (save) {
-			await saveWorkout("Workout test api")
+			await saveWorkout()
 		}
 	}
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
-				<div className={styles.title}>Monday Workout</div>
+				<input
+					className={`${styles.title} ${styles.inputForm}`}
+					ref={workoutNameRef}
+					value={workoutName}
+					onChange={() => {
+						updateWorkoutName(workoutNameRef.current.value)
+					}}
+				/>
 				<DatePicker
 					value={selectedDay}
 					onChange={setSelectedDay}

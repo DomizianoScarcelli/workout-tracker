@@ -30,6 +30,7 @@ export default function MyWorkouts() {
 		localStorage.setItem(
 			"workoutInfo",
 			JSON.stringify({
+				workoutName: workout.name,
 				exercises: workout.exercises,
 				minutes: workout.duration,
 				save: false,
