@@ -18,8 +18,8 @@ export default function History() {
 			const date = moment(workout.date).format("MMMM DD YYYY")
 			if (!tempWorkoutDays.includes(date)) tempWorkoutDays.push(date)
 		}
-		setWorkoutDays(tempWorkoutDays)
-		setHistory(res.data)
+		setWorkoutDays(tempWorkoutDays.reverse())
+		setHistory(res.data.reverse())
 	}
 
 	const removeWorkoutFromHistory = async (workoutId) => {
