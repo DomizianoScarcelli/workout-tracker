@@ -149,7 +149,7 @@ export default function NewWorkout() {
 	}
 	return (
 		<div className={styles.container}>
-			{modalIsOpen && <WorkoutAddedModal setModalIsOpen={setModalIsOpen} />}
+			{modalIsOpen && <WorkoutAddedModal setModalIsOpen={setModalIsOpen} save={save} />}
 			<div className={styles.header}>
 				<input
 					className={`${styles.title} ${styles.inputForm}`}

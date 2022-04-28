@@ -14,11 +14,11 @@ export default function WorkoutAddedModal(props) {
 	}
 
 	function navigateToHistory() {
-		navigate("../../history")
+		navigate("/history")
 	}
 
 	function navigateToMyWorkouts() {
-		navigate("../")
+		navigate("/my-workouts")
 	}
 
 	return (
@@ -37,17 +37,21 @@ export default function WorkoutAddedModal(props) {
 							History
 						</div>
 					</motion.div>
-					<div className={styles.title}>and</div>
-					<motion.div
-						whileHover={{
-							scale: 1.1,
-						}}
-						className={styles.folder}
-					>
-						<div className={styles.title} onClick={navigateToMyWorkouts}>
-							My Workouts
-						</div>
-					</motion.div>
+					{props.save && (
+						<>
+							<div className={styles.title}>and</div>
+							<motion.div
+								whileHover={{
+									scale: 1.1,
+								}}
+								className={styles.folder}
+							>
+								<div className={styles.title} onClick={navigateToMyWorkouts}>
+									My Workouts
+								</div>
+							</motion.div>
+						</>
+					)}
 				</div>
 			</Modal>
 		</div>
