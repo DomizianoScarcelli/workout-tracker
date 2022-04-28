@@ -6,6 +6,7 @@ import Workout from "../MyWorkouts/Workout/Workout"
 import axios from "axios"
 import moment from "moment"
 import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal"
+import { motion } from "framer-motion"
 
 export default function History() {
 	const [history, setHistory] = useState([])
@@ -13,22 +14,33 @@ export default function History() {
 	const [modalIsOpen, setModalIsOpen] = useState(false)
 	const [workoutToDelete, setWorkoutToDelete] = useState(null)
 	const [page, setPage] = useState(1)
+	const [end, setEnd] = useState(false)
 
 	const getHistory = async (startDate, endDate) => {
 		const username = "DovivoD"
 		const res = await axios.get(`http://localhost:8080/sessions/${username}/workouts?startDate=${startDate}&endDate=${endDate}&page=${page}`)
-		let tempWorkoutDays = []
-		for (let workout of res.data) {
-			const date = moment(workout.date).format("MMMM DD YYYY")
-			if (!tempWorkoutDays.includes(date)) tempWorkoutDays.push(date)
+		console.log(res.data.length)
+		if (res.data.length === 0) {
+			setEnd(true)
+		} else {
+			let tempWorkoutDays = []
+			for (let workout of res.data) {
+				const date = moment(workout.date).format("MMMM DD YYYY")
+				if (!tempWorkoutDays.includes(date) && !workoutDays.includes(date)) tempWorkoutDays.push(date)
+			}
+
+			setWorkoutDays([...workoutDays, ...tempWorkoutDays])
+			setHistory([...history, ...res.data])
 		}
-		setWorkoutDays(tempWorkoutDays)
-		setHistory(res.data)
+	}
+
+	const loadMore = () => {
+		setPage(page + 1)
 	}
 
 	const removeWorkoutFromHistory = async (workoutId) => {
 		const username = "DovivoD"
-		const res = await axios.delete(`http://localhost:8080/sessions/remove-history/${workoutId}?username=${username}`)
+		await axios.delete(`http://localhost:8080/sessions/remove-history/${workoutId}?username=${username}`)
 		const startDate = "2020-03-30"
 		const endDate = "2022-05-20"
 		getHistory(startDate, endDate)
@@ -52,7 +64,7 @@ export default function History() {
 		const startDate = "2020-03-30"
 		const endDate = "2022-05-20"
 		getHistory(startDate, endDate)
-	}, [])
+	}, [page])
 
 	return (
 		<div className={styles.container}>
@@ -78,6 +90,13 @@ export default function History() {
 						</>
 					)
 				})}
+				{end ? (
+					<div> Nothing more to show</div>
+				) : (
+					<motion.div whileHover={{ scale: 1.1 }} className={styles.loadMoreButton} onClick={loadMore}>
+						Show me more
+					</motion.div>
+				)}
 			</div>
 		</div>
 	)
