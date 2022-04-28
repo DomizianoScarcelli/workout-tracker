@@ -33,7 +33,7 @@ export default function WorkoutAddedModal(props) {
 						}}
 						className={styles.folder}
 					>
-						<div className={`${styles.title} ${styles.yellow}`} onClick={navigateToHistory}>
+						<div className={styles.title} onClick={navigateToHistory}>
 							History
 						</div>
 					</motion.div>
@@ -44,7 +44,7 @@ export default function WorkoutAddedModal(props) {
 						}}
 						className={styles.folder}
 					>
-						<div className={`${styles.title} ${styles.yellow}`} onClick={navigateToMyWorkouts}>
+						<div className={styles.title} onClick={navigateToMyWorkouts}>
 							My Workouts
 						</div>
 					</motion.div>

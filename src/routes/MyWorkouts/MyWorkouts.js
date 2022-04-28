@@ -8,15 +8,18 @@ import { useQuery } from "../../hooks/useQuery"
 import NewWorkout from "./NewWorkout/NewWorkout"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal"
 
 export default function MyWorkouts() {
 	const navigate = useNavigate()
 	const query = useQuery()
 	const [workouts, setWorkouts] = useState([])
+	const [modalIsOpen, setModalIsOpen] = useState(false)
+	const [workoutToDelete, setWorkoutToDelete] = useState(null)
 
 	const deleteSavedWorkout = async (workoutId) => {
 		const username = "DovivoD"
-		const res = await axios.delete(`http://localhost:8080/users/delete/${workoutId}?username=${username}`)
+		await axios.delete(`http://localhost:8080/users/delete/${workoutId}?username=${username}`)
 		getUserSavedWorkouts()
 	}
 
@@ -24,6 +27,20 @@ export default function MyWorkouts() {
 		const username = "DovivoD"
 		const res = await axios.get(`http://localhost:8080/users/info/${username}`)
 		setWorkouts(res.data[0].savedWorkouts)
+	}
+
+	const confirmDelete = () => {
+		setModalIsOpen(false)
+		deleteSavedWorkout(workoutToDelete)
+	}
+
+	const discardDelete = () => {
+		setModalIsOpen(false)
+	}
+
+	const showModal = (workoutId) => {
+		setWorkoutToDelete(workoutId)
+		setModalIsOpen(true)
 	}
 
 	const openWorkoutEditor = (workout) => {
@@ -45,6 +62,8 @@ export default function MyWorkouts() {
 
 	return (
 		<div className={styles.container}>
+			{modalIsOpen && <ConfirmationModal onConfirm={confirmDelete} onDiscard={discardDelete} />}
+
 			<Sidebar selected={"my-workouts"} />
 			<Routes>
 				<Route
@@ -75,7 +94,7 @@ export default function MyWorkouts() {
 									name={workout.name}
 									id={workout["_id"]}
 									duration={workout.duration}
-									removeWorkout={() => deleteSavedWorkout(workout["_id"])}
+									removeWorkout={() => showModal(workout["_id"])}
 								/>
 							))}
 						</motion.div>
