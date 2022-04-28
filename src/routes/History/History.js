@@ -12,23 +12,24 @@ export default function History() {
 	const [workoutDays, setWorkoutDays] = useState([])
 	const [modalIsOpen, setModalIsOpen] = useState(false)
 	const [workoutToDelete, setWorkoutToDelete] = useState(null)
+	const [page, setPage] = useState(1)
 
 	const getHistory = async (startDate, endDate) => {
 		const username = "DovivoD"
-		const res = await axios.get(`http://localhost:8080/sessions/${username}/workouts?startDate=${startDate}&endDate=${endDate}`)
+		const res = await axios.get(`http://localhost:8080/sessions/${username}/workouts?startDate=${startDate}&endDate=${endDate}&page=${page}`)
 		let tempWorkoutDays = []
 		for (let workout of res.data) {
 			const date = moment(workout.date).format("MMMM DD YYYY")
 			if (!tempWorkoutDays.includes(date)) tempWorkoutDays.push(date)
 		}
-		setWorkoutDays(tempWorkoutDays.reverse())
+		setWorkoutDays(tempWorkoutDays)
 		setHistory(res.data)
 	}
 
 	const removeWorkoutFromHistory = async (workoutId) => {
 		const username = "DovivoD"
 		const res = await axios.delete(`http://localhost:8080/sessions/remove-history/${workoutId}?username=${username}`)
-		const startDate = "2021-03-30"
+		const startDate = "2020-03-30"
 		const endDate = "2022-05-20"
 		getHistory(startDate, endDate)
 	}
@@ -48,7 +49,7 @@ export default function History() {
 	}
 
 	useEffect(() => {
-		const startDate = "2021-03-30"
+		const startDate = "2020-03-30"
 		const endDate = "2022-05-20"
 		getHistory(startDate, endDate)
 	}, [])
