@@ -22,7 +22,7 @@ export default function History() {
 			if (!tempWorkoutDays.includes(date)) tempWorkoutDays.push(date)
 		}
 		setWorkoutDays(tempWorkoutDays.reverse())
-		setHistory(res.data.reverse())
+		setHistory(res.data)
 	}
 
 	const removeWorkoutFromHistory = async (workoutId) => {
