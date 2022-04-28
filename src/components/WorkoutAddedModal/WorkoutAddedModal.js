@@ -23,7 +23,7 @@ export default function WorkoutAddedModal(props) {
 
 	return (
 		<div>
-			<Modal isOpen={true} onRequestClose={closeModal} className={styles.container} contentLabel="Workout Added">
+			<Modal isOpen={true} onRequestClose={closeModal} className={styles.container} onAfterClose={navigateToMyWorkouts} contentLabel="Workout Added">
 				<div className={styles.closeButton} onClick={closeModal}></div>
 				<div className={styles.title}>The workout has been added in the</div>
 				<div className={styles.innerContainer}>
