@@ -5,10 +5,13 @@ import { useState, useEffect } from "react"
 import Workout from "../MyWorkouts/Workout/Workout"
 import axios from "axios"
 import moment from "moment"
+import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal"
 
 export default function History() {
 	const [history, setHistory] = useState([])
 	const [workoutDays, setWorkoutDays] = useState([])
+	const [modalIsOpen, setModalIsOpen] = useState(false)
+	const [workoutToDelete, setWorkoutToDelete] = useState(null)
 
 	const getHistory = async (startDate, endDate) => {
 		const username = "DovivoD"
@@ -30,6 +33,20 @@ export default function History() {
 		getHistory(startDate, endDate)
 	}
 
+	const confirmDelete = () => {
+		setModalIsOpen(false)
+		removeWorkoutFromHistory(workoutToDelete)
+	}
+
+	const discardDelete = () => {
+		setModalIsOpen(false)
+	}
+
+	const showModal = (workoutId) => {
+		setWorkoutToDelete(workoutId)
+		setModalIsOpen(true)
+	}
+
 	useEffect(() => {
 		const startDate = "2021-03-30"
 		const endDate = "2022-05-20"
@@ -38,6 +55,7 @@ export default function History() {
 
 	return (
 		<div className={styles.container}>
+			{modalIsOpen && <ConfirmationModal onConfirm={confirmDelete} onDiscard={discardDelete} />}
 			<Sidebar selected={"history"} />
 			<div className={styles.innerContainer}>
 				<div className={styles.header}>
@@ -52,13 +70,7 @@ export default function History() {
 								(workout) =>
 									moment(workout.date).isSame(moment(day), "day") && (
 										<>
-											<Workout
-												exercises={workout.exercises}
-												name={""}
-												id={workout["_id"]}
-												duration={workout.duration}
-												removeWorkout={() => removeWorkoutFromHistory(workout["_id"])}
-											/>
+											<Workout exercises={workout.exercises} name={""} id={workout["_id"]} duration={workout.duration} removeWorkout={() => showModal(workout["_id"])} />
 										</>
 									)
 							)}
