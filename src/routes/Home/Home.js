@@ -9,7 +9,6 @@ import FrequencyChart from "./FrequencyChart/FrequencyChart"
 import { useState, createContext } from "react"
 import CurrentPeriod from "../../components/CurrentPeriod/CurrentPeriod"
 import moment from "moment"
-import WorkoutAddedModal from "../../components/WorkoutAddedModal/WorkoutAddedModal"
 
 export const HomeContext = createContext()
 
@@ -20,7 +19,6 @@ export default function Home() {
 
 	return (
 		<HomeContext.Provider value={{ addWorkoutAnimation: addWorkoutAnimation, dayOfRef: [dayOfRef, setDayOfRef], period: [period, setPeriod] }}>
-			<WorkoutAddedModal />
 			<div className={styles.container}>
 				<Sidebar selected={"home"} />
 				<div className={styles.flexCol}>
