@@ -6,6 +6,7 @@ import "react-modern-calendar-datepicker/lib/DatePicker.css"
 import DatePicker from "react-modern-calendar-datepicker"
 import moment from "moment"
 import { motion } from "framer-motion"
+import WorkoutAddedModal from "../../../components/WorkoutAddedModal/WorkoutAddedModal"
 
 export default function NewWorkout() {
 	const durationRef = useRef(null)
@@ -17,6 +18,7 @@ export default function NewWorkout() {
 	const [duration, setDuration] = useState(localStorage.getItem("workoutInfo") ? JSON.parse(localStorage.getItem("workoutInfo")).minutes : "")
 	const workoutNameRef = useRef(null)
 	const [workoutName, setWorkoutName] = useState(localStorage.getItem("workoutInfo") ? JSON.parse(localStorage.getItem("workoutInfo")).workoutName : "")
+	const [modalIsOpen, setModalIsOpen] = useState(false)
 
 	useEffect(() => {
 		if (localStorage.getItem("workoutInfo") !== null) setExercises(getInfoFromLocalStorage().exercises)
@@ -143,9 +145,11 @@ export default function NewWorkout() {
 		if (save) {
 			await saveWorkout()
 		}
+		setModalIsOpen(true)
 	}
 	return (
 		<div className={styles.container}>
+			{modalIsOpen && <WorkoutAddedModal setModalIsOpen={setModalIsOpen} />}
 			<div className={styles.header}>
 				<input
 					className={`${styles.title} ${styles.inputForm}`}
